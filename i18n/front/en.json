@@ -1,0 +1,14 @@
+{
+  "btn": {
+    "accept": "Accept",
+    "clean": "Clean",
+    "connect": "Connect",
+    "disable": "Disable",
+    "enable": "Enable",
+    "ok": "OK",
+    "subscribe": "Subscribe",
+    "uninstall": "Uninstall"
+  },
+  "wg": {
+  }
+}

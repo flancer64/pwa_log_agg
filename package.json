@@ -1,0 +1,35 @@
+{
+  "name": "@flancer64/pwa_log_agg",
+  "version": "0.1.0",
+  "description": "Simple service to aggregate logs and monitor it using browser.",
+  "homepage": "https://github.com/flancer64/pwa_log_agg/",
+  "bugs": {
+    "url": "https://github.com/flancer64/pwa_log_agg/issues",
+    "email": "alex@flancer32.com"
+  },
+  "license": "Apache-2.0",
+  "author": {
+    "name": "Alex Gusev",
+    "email": "alex@flancer64.com",
+    "url": "https://github.com/flancer64"
+  },
+  "repository": "github:flancer64/pwa_log_agg",
+  "scripts": {
+    "db-init": "node ./bin/tequila.mjs app-db-init",
+    "help": "node ./bin/tequila.mjs -h",
+    "rebuild": "rm -fr node_modules package-lock.json && npm install",
+    "version": "node ./bin/tequila.mjs core-version"
+  },
+  "dependencies": {
+    "@teqfw/core": "github:teqfw/core",
+    "@teqfw/db": "github:teqfw/db",
+    "@teqfw/di": "github:teqfw/di",
+    "@teqfw/i18n": "github:teqfw/i18n",
+    "@teqfw/test": "github:teqfw/test",
+    "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
+    "@teqfw/vue": "github:teqfw/vue",
+    "@teqfw/web": "github:teqfw/web",
+    "pg": "*"
+  },
+  "devDependencies": {}
+}

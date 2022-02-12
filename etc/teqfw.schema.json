@@ -1,0 +1,22 @@
+{
+  "package": {
+    "app": {
+      "entity": {
+        "log": {
+          "comment": "Logs registry.",
+          "attr": {
+            "id": {"type": "id"},
+            "message": {
+              "comment": "Log messages as text.",
+              "type": "text"
+            },
+            "meta": {
+              "comment": "Metadata for log entry.",
+              "type": "json"
+            }
+          }
+        }
+      }
+    }
+  }
+}

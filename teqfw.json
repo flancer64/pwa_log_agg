@@ -1,0 +1,24 @@
+{
+  "@teqfw/core": {
+    "commands": [
+      "Fl64_Log_Agg_Back_Cli_Db_Init"
+    ],
+    "plugin": {
+      "onInit": "Fl64_Log_Agg_Back_Plugin_Init",
+      "onStop": "Fl64_Log_Agg_Back_Plugin_Stop"
+    }
+  },
+  "@teqfw/di": {
+    "autoload": {
+      "ns": "Fl64_Log_Agg",
+      "path": "./src"
+    }
+  },
+  "@teqfw/web": {
+    "excludes": {
+      "handlers": [
+        "TeqFw_Web_Back_App_Server_Handler_Upload"
+      ]
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "@flancer64/pwa_log_agg": {
+    "db": {
+      "client": "pg",
+      "connection": {
+        "database": "log_agg",
+        "host": "127.0.0.1",
+        "password": "...",
+        "user": "..."
+      }
+    }
+  },
+  "@teqfw/core": {
+    "devMode": false
+  },
+  "@teqfw/web": {
+    "server": {
+      "port": 9999
+    },
+    "urlBase": "log.agg.domain.com"
+  }
+}
