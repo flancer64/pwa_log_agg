@@ -6,14 +6,22 @@
           "comment": "Logs registry.",
           "attr": {
             "id": {"type": "id"},
-            "message": {
-              "comment": "Log messages as text.",
-              "type": "text"
+            "date": {
+              "comment": "Registration date to cleanup expired logs.",
+              "type": "datetime",
+              "default": "current"
             },
             "meta": {
               "comment": "Metadata for log entry.",
               "type": "json"
+            },
+            "message": {
+              "comment": "Log messages as text.",
+              "type": "text"
             }
+          },
+          "index": {
+            "date": {"type": "index", "attrs": ["date"]}
           }
         }
       }

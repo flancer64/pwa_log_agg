@@ -19,6 +19,9 @@
       "handlers": [
         "TeqFw_Web_Back_App_Server_Handler_Upload"
       ]
-    }
+    },
+    "services": [
+      "Fl64_Log_Agg_Back__WAPI_Add"
+    ]
   }
 }
