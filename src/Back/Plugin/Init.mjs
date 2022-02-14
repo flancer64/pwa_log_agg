@@ -15,6 +15,7 @@ export default function Factory(spec) {
     /** @type {TeqFw_Db_Back_RDb_Connect} */ // use interface as implementation
     const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
 
+
     // ENCLOSED FUNCTIONS
     async function init() {
         // ENCLOSED FUNCTIONS
@@ -32,6 +33,8 @@ export default function Factory(spec) {
 
         // MAIN
         await initDb();
+        // TODO: move it to core
+        await container.get('Fl64_Log_Agg_Back_Proc_Load_Logs$');
     }
 
     // MAIN
