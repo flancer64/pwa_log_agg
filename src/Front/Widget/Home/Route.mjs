@@ -26,8 +26,13 @@ export default function (spec) {
     const esfLogsReq = spec['Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request$'];
     /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response} */
     const esbLogsRes = spec['Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response$'];
+    /** @type {Fl64_Log_Agg_Shared_Event_Back_Log_Added} */
+    const esbAdded = spec['Fl64_Log_Agg_Shared_Event_Back_Log_Added$'];
 
-    // WORKING VARS
+
+    // ENCLOSED VARS
+    let subAdd; // subscription for log added events on back
+
     const template = `
 <layout-base>
     <q-scroll-area style="width:100%; height: calc(100vh - var(--dim-topBar-h)- var(--dim-bottomBar-h))"
@@ -36,6 +41,8 @@ export default function (spec) {
     </q-scroll-area>
 </layout-base>
 `;
+
+    // MAIN
     /**
      * Template to create new component instances using Vue.
      *
@@ -53,6 +60,9 @@ export default function (spec) {
             };
         },
         async mounted() {
+            // ENCLOSED VARS
+            const me = this;
+
             // ENCLOSED FUNCS
             function requestItems() {
                 return new Promise((resolve) => {
@@ -86,8 +96,20 @@ export default function (spec) {
 
             }
 
+            /**
+             * @param {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto} data
+             */
+            function onLogAdded({data}) {
+                // noinspection JSValidateTypes
+                const dto = esbAdded.createDto({data});
+                me.items.unshift(dto.data.item);
+            }
+
             // MAIN
             this.items = await requestItems();
+            // remove old subscription and create new one
+            if (subAdd) eventsFront.unsubscribe(subAdd);
+            subAdd = eventsFront.subscribe(esbAdded.getEventName(), onLogAdded);
 
         }
     };

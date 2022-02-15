@@ -22,6 +22,14 @@ export default class Fl64_Log_Agg_Back__WAPI_Add {
         const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
         /** @type {Fl64_Log_Agg_Back_Store_RDb_Schema_Log} */
         const rdbLog = spec['Fl64_Log_Agg_Back_Store_RDb_Schema_Log$'];
+        /** @type {TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal} */
+        const portalFront = spec['TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal$'];
+        /** @type {TeqFw_Web_Back_Mod_Event_Reverse_Registry} */
+        const registry = spec['TeqFw_Web_Back_Mod_Event_Reverse_Registry$'];
+        /** @type {Fl64_Log_Agg_Shared_Event_Back_Log_Added} */
+        const esbLogAdded = spec['Fl64_Log_Agg_Shared_Event_Back_Log_Added$'];
+        /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
+        const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
@@ -46,6 +54,18 @@ export default class Fl64_Log_Agg_Back__WAPI_Add {
                     const {id} = await crud.create(trx, rdbLog, data);
                     await trx.commit();
                     res.id = id;
+                    // publish new log event
+                    const newItem = dtoLog.createDto();
+                    newItem.date = data.meta?.date;
+                    newItem.message = data.message;
+                    for (const one of registry.getAll()) {
+                        const event = esbLogAdded.createDto();
+                        event.data.item = newItem;
+                        event.meta.frontUUID = one.frontId;
+                        // noinspection ES6MissingAwait
+                        portalFront.publish(event);
+                    }
+
                 } catch (e) {
                     logger.error(e);
                     await trx.rollback();

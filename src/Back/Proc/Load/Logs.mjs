@@ -14,10 +14,10 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
         const crud = spec['TeqFw_Db_Back_Api_RDb_ICrudEngine$'];
         /** @type {Fl64_Log_Agg_Back_Store_RDb_Schema_Log} */
         const rdbLog = spec['Fl64_Log_Agg_Back_Store_RDb_Schema_Log$'];
-        /** @type {TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal} */
-        const portalFront = spec['TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal$'];
         /** @type {TeqFw_Core_Back_App_Event_Bus} */
         const eventsBack = spec['TeqFw_Core_Back_App_Event_Bus$'];
+        /** @type {TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal} */
+        const portalFront = spec['TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request} */
         const esfLogsReq = spec['Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response} */
