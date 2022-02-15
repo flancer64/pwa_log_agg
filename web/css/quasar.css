@@ -25,3 +25,7 @@
 /*.q-img__content > div {*/
 /*    background: var(--color-base);*/
 /*}*/
+
+.q-toolbar {
+    min-height: 10px !important;
+}

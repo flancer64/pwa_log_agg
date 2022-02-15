@@ -29,12 +29,16 @@ function formatDateTimeForLog(date) {
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
-
+    /** @type {Fl64_Log_Agg_Front_Rx_Details} */
+    const rxDetails = spec['Fl64_Log_Agg_Front_Rx_Details$'];
 
     // WORKING VARS
     const template = `
-<div class="row q-gutter-xs">
-    <div class="col-auto">{{date}}</div>
+<div class="row q-gutter-xs t-grid-row" v-on:click="openDetails">
+    <div class="col-auto t-grid-col-date">{{date}}</div>
+    <div class="col-auto t-grid-col-type">
+        <q-avatar size="xs" :color="iconColor">{{iconLetter}}</q-avatar>
+    </div>
     <div class="col" style="height:20px; overflow: hidden;">{{message}}</div>
 </div>
 `;
@@ -65,6 +69,18 @@ export default function (spec) {
             message() {
                 return this?.item?.message;
             },
+            iconColor() {
+                return (this?.item?.isError) ? 'red-2' : 'blue-2';
+            },
+            iconLetter() {
+                return (this?.item?.isError) ? 'E' : 'I';
+            }
+        },
+        methods: {
+            openDetails() {
+                rxDetails.setItem(this.item);
+                rxDetails.setDisplay(true);
+            }
         },
         async mounted() {
 

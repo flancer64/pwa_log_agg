@@ -53,6 +53,8 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
                     const dto = dtoLog.createDto();
                     dto.date = one.date;
                     dto.message = one.message;
+                    dto.isError = !!one?.meta?.error
+                    if (one.meta?.source) dto.source = one.meta.source;
                     items.push(dto);
                 }
                 // send contact card to recipient

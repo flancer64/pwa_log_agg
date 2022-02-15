@@ -1,9 +1,18 @@
-.t-grid-rows {
-    display: grid;
-    grid-auto-flow: row;
+.t-grid-row {
+    border-bottom: 1px solid var(--q-primary);
+    cursor: pointer;
 }
 
-.t-grid-cols {
-    display: grid;
-    grid-auto-flow: column;
+.t-grid-row:hover {
+    background-color: var(--color-bg-grid);
+}
+
+.t-grid-col-date {
+    border-right: 1px solid var(--q-primary);
+    font-size: smaller;
+    padding: 0 5px 0 5px;
+}
+
+.t-grid-col-type {
+    border-right: 1px solid var(--q-primary);
 }

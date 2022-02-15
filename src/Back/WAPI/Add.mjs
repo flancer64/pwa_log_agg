@@ -55,12 +55,14 @@ export default class Fl64_Log_Agg_Back__WAPI_Add {
                     await trx.commit();
                     res.id = id;
                     // publish new log event
-                    const newItem = dtoLog.createDto();
-                    newItem.date = data.meta?.date;
-                    newItem.message = data.message;
+                    const newEntry = dtoLog.createDto();
+                    newEntry.date = data.meta?.date;
+                    newEntry.message = data.message;
+                    newEntry.isError = !!data.meta?.error;
+                    if (data.meta?.source) newEntry.source = data.meta.source;
                     for (const one of registry.getAll()) {
                         const event = esbLogAdded.createDto();
-                        event.data.item = newItem;
+                        event.data.item = newEntry;
                         event.meta.frontUUID = one.frontId;
                         // noinspection ES6MissingAwait
                         portalFront.publish(event);

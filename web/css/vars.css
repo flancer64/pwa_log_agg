@@ -5,6 +5,9 @@
     --color-darkest: #2A180E;
     --color-lighter: #E6966B;
     --color-lightest: #F4CFBC;
+    /* grid colors */
+    --color-bg-grid: #E6F8FF;
+    --color-border: var(--q-primary);
 }
 
 :root {
@@ -14,5 +17,5 @@
 }
 
 .t-grid-rows, .t-grid-cols {
-    --grid-gap: 5px;
+    /*--grid-gap: 5px;*/
 }
