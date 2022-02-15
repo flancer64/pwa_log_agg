@@ -5,25 +5,25 @@
 
 
 /* Basic colors for Monochromatic scheme */
-.bg-base {
-    background: var(--color-base) !important;
-}
+/*.bg-base {*/
+/*    background: var(--color-base) !important;*/
+/*}*/
 
-.text-base {
-    color: var(--color-base) !important;
-}
+/*.text-base {*/
+/*    color: var(--color-base) !important;*/
+/*}*/
 
-.bg-darker {
-    background: var(--color-darker) !important;
-}
+/*.bg-darker {*/
+/*    background: var(--color-darker) !important;*/
+/*}*/
 
-.text-darker {
-    color: var(--color-darker) !important;
-}
+/*.text-darker {*/
+/*    color: var(--color-darker) !important;*/
+/*}*/
 
-.bg-darkest {
-    background: var(--color-darkest) !important;
-}
+/*.bg-darkest {*/
+/*    background: var(--color-darkest) !important;*/
+/*}*/
 
 .text-darkest {
     color: var(--color-darkest) !important;

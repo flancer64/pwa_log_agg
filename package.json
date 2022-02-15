@@ -31,7 +31,7 @@
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar",
     "@teqfw/vue": "github:teqfw/vue",
     "@teqfw/web": "github:teqfw/web",
+    "element-plus": "^2.0.2",
     "pg": "*"
-  },
-  "devDependencies": {}
+  }
 }

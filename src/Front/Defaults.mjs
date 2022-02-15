@@ -3,9 +3,9 @@
  */
 export default class Fl64_Log_Agg_Front_Defaults {
 
-    ROUTE_CONFIG = '/config';
     ROUTE_HOME = '/';
     ROUTE_LOGS = '/logs';
+    ROUTE_SETTINGS = '/settings';
 
     /** @type {Fl64_Log_Agg_Shared_Defaults} */
     SHARED;

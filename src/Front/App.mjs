@@ -31,6 +31,8 @@ export default class Fl64_Log_Agg_Front_App {
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {Fl64_Log_Agg_Front_Layout_Base} */
         const layoutBase = spec['Fl64_Log_Agg_Front_Layout_Base$'];
+        /** @type {Fl64_Log_Agg_Front_Layout_Top.vueCompTmpl} */
+        const topBar = spec['Fl64_Log_Agg_Front_Layout_Top$'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
         const config = spec['TeqFw_Web_Front_Mod_Config$'];
         /** @type {TeqFw_Web_Front_Mod_App_Front_Identity} */
@@ -137,6 +139,10 @@ export default class Fl64_Log_Agg_Front_App {
                 quasar.iconSet.set(quasar.iconSet.svgMaterialIcons);
             }
 
+            function initUiComponents(app) {
+
+            }
+
             function initRouter(app, DEF, container) {
                 /** @type {{addRoute}} */
                 const router = createRouter({
@@ -145,12 +151,12 @@ export default class Fl64_Log_Agg_Front_App {
                 });
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
-                    path: DEF.ROUTE_CONFIG,
-                    component: () => container.get('Fl64_Log_Agg_Front_Widget_Config_Route$'),
-                });
-                router.addRoute({
                     path: DEF.ROUTE_HOME,
                     component: () => container.get('Fl64_Log_Agg_Front_Widget_Home_Route$'),
+                });
+                router.addRoute({
+                    path: DEF.ROUTE_SETTINGS,
+                    component: () => container.get('Fl64_Log_Agg_Front_Widget_Settings_Route$'),
                 });
 
                 app.use(router);
@@ -179,6 +185,8 @@ export default class Fl64_Log_Agg_Front_App {
 
             // ... and add global available components
             _root.component('LayoutBase', layoutBase);
+            _root.component('TopBar', topBar);
+
 
             // other initialization
             // logger.pause(false);
@@ -195,6 +203,7 @@ export default class Fl64_Log_Agg_Front_App {
                     await initEventProcessors(container);
                     print(`Frontend processes are created.`);
                     initQuasarUi(_root, quasar);
+                    initUiComponents(_root);
                     print(`Data sources are initialized.`);
                     initRouter(_root, DEF, container);
                     print(`Vue app is created and initialized.`);
