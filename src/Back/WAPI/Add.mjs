@@ -1,15 +1,15 @@
 /**
  * WAPI service to add one log entry to aggregator.
  *
- * @namespace Fl64_Log_Agg_Back__WAPI_Add
+ * @namespace Fl64_Log_Agg_Back_WAPI_Add
  */
 // MODULE'S VARS
-const NS = 'Fl64_Log_Agg_Back__WAPI_Add';
+const NS = 'Fl64_Log_Agg_Back_WAPI_Add';
 
 /**
  * @implements TeqFw_Web_Back_Api_WAPI_IFactory
  */
-export default class Fl64_Log_Agg_Back__WAPI_Add {
+export default class Fl64_Log_Agg_Back_WAPI_Add {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {TeqFw_Core_Shared_Logger} */
@@ -28,14 +28,14 @@ export default class Fl64_Log_Agg_Back__WAPI_Add {
         const registry = spec['TeqFw_Web_Back_Mod_Event_Reverse_Registry$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Back_Log_Added} */
         const esbLogAdded = spec['Fl64_Log_Agg_Shared_Event_Back_Log_Added$'];
-        /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
-        const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
+        /** @type {Fl64_Log_Agg_Back_Mod_Convert_LogEntry} */
+        const convert = spec['Fl64_Log_Agg_Back_Mod_Convert_LogEntry$'];
 
         // DEFINE INSTANCE METHODS
         this.getRouteFactory = () => route;
 
         this.getService = function () {
-            // DEFINE INNER FUNCTIONS
+            // ENCLOSED FUNCS
             /**
              * @param {TeqFw_Web_Back_App_Server_Handler_WAPI_Context} context
              */
@@ -47,19 +47,13 @@ export default class Fl64_Log_Agg_Back__WAPI_Add {
                 const trx = await rdb.startTransaction();
                 try {
                     /** @type {Fl64_Log_Agg_Back_Store_RDb_Schema_Log.Dto} */
-                    const data = rdbLog.createDto();
-                    data.message = req.message;
-                    data.meta = req.meta;
+                    const data = convert.wapiToRdb(req);
                     // noinspection JSValidateTypes
                     const {id} = await crud.create(trx, rdbLog, data);
                     await trx.commit();
                     res.id = id;
-                    // publish new log event
-                    const newEntry = dtoLog.createDto();
-                    newEntry.date = data.meta?.date;
-                    newEntry.message = data.message;
-                    newEntry.isError = !!data.meta?.error;
-                    if (data.meta?.source) newEntry.source = data.meta.source;
+                    // publish new log event to connected fronts
+                    const newEntry = convert.rdbToNet(data);
                     for (const one of registry.getAll()) {
                         const event = esbLogAdded.createDto();
                         event.data.item = newEntry;

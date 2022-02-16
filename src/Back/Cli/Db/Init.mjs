@@ -33,14 +33,14 @@ export default function Factory(spec) {
     /** @type {Fl64_Log_Agg_Back_Cli_Db_Z_Restruct.action|function} */
     const actRestruct = spec['Fl64_Log_Agg_Back_Cli_Db_Z_Restruct$'];
 
-    // DEFINE INNER FUNCTIONS
+    // ENCLOSED FUNCS
     /**
      * Command action.
      * @returns {Promise<void>}
      * @memberOf Fl64_Log_Agg_Back_Cli_Db_Init
      */
     async function action(opts) {
-        // DEFINE INNER FUNCTIONS
+        // ENCLOSED FUNCS
 
         // MAIN FUNCTIONALITY
         logger.pause(false);

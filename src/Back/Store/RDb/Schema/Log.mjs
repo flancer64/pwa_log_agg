@@ -17,8 +17,10 @@ const ENTITY = '/app/log';
 const ATTR = {
     DATE: 'date',
     ID: 'id',
+    LEVEL: 'level',
     MESSAGE: 'message',
     META: 'meta',
+    SOURCE: 'source',
 };
 
 // MODULE'S CLASSES
@@ -32,6 +34,13 @@ class Dto {
      * @type {Date}
      */
     date;
+    /** @type {number} */
+    id;
+    /**
+     * Log entry level. Any custom unsigned numbers.
+     * @type {number}
+     */
+    level;
     /**
      * Log message.
      * @type {string}
@@ -42,6 +51,11 @@ class Dto {
      * @type {Object}
      */
     meta;
+    /**
+     * Log source (namespace, filename, process id, ...).
+     * @type {string}
+     */
+    source;
 }
 
 // noinspection JSClosureCompilerSyntax

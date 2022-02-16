@@ -21,7 +21,7 @@
       ]
     },
     "services": [
-      "Fl64_Log_Agg_Back__WAPI_Add"
+      "Fl64_Log_Agg_Back_WAPI_Add"
     ],
     "statics": {
       "/element-plus/": "/element-plus/dist/",

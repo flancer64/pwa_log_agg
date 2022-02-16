@@ -1,5 +1,5 @@
 /**
- * Load the latest logs to start monitoring on the front.
+ * Load the latest logs when front start monitoring.
  *
  * @namespace Fl64_Log_Agg_Back_Proc_Load_Logs
  */
@@ -22,8 +22,8 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
         const esfLogsReq = spec['Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response} */
         const esbLogsRes = spec['Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response$'];
-        /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
-        const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
+        /** @type {Fl64_Log_Agg_Back_Mod_Convert_LogEntry} */
+        const convert = spec['Fl64_Log_Agg_Back_Mod_Convert_LogEntry$'];
 
         // ENCLOSED VARS
         /** @type {typeof Fl64_Log_Agg_Back_Store_RDb_Schema_Log.ATTR} */
@@ -50,11 +50,7 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
                 await trx.commit();
                 for (const one of found) {
                     /** @type {Fl64_Log_Agg_Shared_Dto_Log.Dto} */
-                    const dto = dtoLog.createDto();
-                    dto.date = one.date;
-                    dto.message = one.message;
-                    dto.isError = !!one?.meta?.error
-                    if (one.meta?.source) dto.source = one.meta.source;
+                    const dto = convert.rdbToNet(one);
                     items.push(dto);
                 }
                 // send contact card to recipient

@@ -10,7 +10,10 @@ const NS = 'Fl64_Log_Agg_Shared_Dto_Log';
  */
 const ATTR = {
     DATE: 'date',
+    LEVEL: 'level',
     MESSAGE: 'message',
+    META: 'meta',
+    SOURCE: 'source',
 };
 
 // MODULE'S CLASSES
@@ -21,8 +24,8 @@ class Dto {
     static namespace = NS;
     /** @type {Date} */
     date;
-    /** @type {boolean} */
-    isError;
+    /** @type {number} */
+    level;
     /** @type {string} */
     message;
     /**
@@ -43,8 +46,8 @@ class Dto {
 export default class Fl64_Log_Agg_Shared_Dto_Log {
 
     constructor(spec) {
-        /** @type {TeqFw_Core_Shared_Util_Cast.castBoolean|function} */
-        const castBoolean = spec['TeqFw_Core_Shared_Util_Cast.castBoolean'];
+        /** @type {TeqFw_Core_Shared_Util_Cast.castInt|function} */
+        const castInt = spec['TeqFw_Core_Shared_Util_Cast.castInt'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castDate|function} */
         const castDate = spec['TeqFw_Core_Shared_Util_Cast.castDate'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
@@ -60,9 +63,8 @@ export default class Fl64_Log_Agg_Shared_Dto_Log {
         this.createDto = function (data = null) {
             const res = new Dto();
             res.date = castDate(data?.date);
-            res.isError = castBoolean(data?.isError);
+            res.level = castInt(data?.level);
             res.message = castString(data?.message);
-            // noinspection JSValidateTypes
             res.meta = dtoFormless.createDto(data?.meta);
             res.source = castString(data?.source);
             return res;

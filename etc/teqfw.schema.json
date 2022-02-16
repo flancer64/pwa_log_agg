@@ -7,17 +7,29 @@
           "attr": {
             "id": {"type": "id"},
             "date": {
-              "comment": "Registration date to cleanup expired logs.",
+              "comment": "Log date-time (UTC).",
               "type": "datetime",
               "default": "current"
             },
-            "meta": {
-              "comment": "Metadata for log entry.",
-              "type": "json"
+            "level": {
+              "comment": "Log date-time (UTC).",
+              "type": "integer",
+              "default": 0,
+              "options": {
+              }
             },
             "message": {
               "comment": "Log messages as text.",
               "type": "text"
+            },
+            "source": {
+              "comment": "Namespace of the log source (filename, process id, ...).",
+              "type": "string",
+              "nullable": true
+            },
+            "meta": {
+              "comment": "Metadata for log entry.",
+              "type": "json"
             }
           },
           "index": {

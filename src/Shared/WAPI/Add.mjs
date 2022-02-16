@@ -12,15 +12,30 @@ const NS = 'Fl64_Log_Agg_Shared_WAPI_Add';
  */
 export class Request {
     /**
+     * Log event date (UTC).
+     * @type {Date}
+     */
+    date;
+    /**
+     * Unsigned integer to indicate logged event level. Custom values.
+     * @type {number}
+     */
+    level;
+    /**
      * Log message to aggregate.
      * @type {string}
      */
     message;
     /**
      * Metadata as JSON object.
-     * @type {string}
+     * @type {Object}
      */
     meta;
+    /**
+     * Log event source (namespace, filename, process id, ...).
+     * @type {string}
+     */
+    source;
 }
 
 /**
@@ -46,6 +61,8 @@ export class Factory {
         // DEPS
         /** @type {Fl64_Log_Agg_Shared_Defaults} */
         const DEF = spec['Fl64_Log_Agg_Shared_Defaults$'];
+        /** @type {TeqFw_Core_Shared_Util_Cast.castDate|function} */
+        const castDate = spec['TeqFw_Core_Shared_Util_Cast.castDate'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castInt|function} */
         const castInt = spec['TeqFw_Core_Shared_Util_Cast.castInt'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
@@ -60,8 +77,10 @@ export class Factory {
          */
         this.createReq = function (data) {
             const res = new Request();
+            res.date = castDate(data?.date);
+            res.level = castInt(data?.level);
             res.message = castString(data?.message);
-            // noinspection JSValidateTypes
+            res.source = castString(data?.source);
             res.meta = dtoFormless.createDto(data?.meta);
             return res;
         }
