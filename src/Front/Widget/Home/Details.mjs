@@ -18,6 +18,8 @@ export default function (spec) {
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
     /** @type {Fl64_Log_Agg_Front_Rx_Details} */
     const rxDetails = spec['Fl64_Log_Agg_Front_Rx_Details$'];
+    /** @type {Fl64_Log_Agg_Front_Widget_Home_Details_Meta.vueCompTmpl} */
+    const logMeta = spec['Fl64_Log_Agg_Front_Widget_Home_Details_Meta$'];
 
     // WORKING VARS
     const template = `
@@ -32,7 +34,7 @@ export default function (spec) {
         </q-card-section>
         
         <q-card-section class="q-pt-none">
-            {{item.meta}}
+            <log-meta :meta="item.meta"/>
         </q-card-section>
 
         <q-card-actions align="right">
@@ -51,7 +53,7 @@ export default function (spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {},
+        components: {logMeta},
         data() {
             return {
                 display: null,

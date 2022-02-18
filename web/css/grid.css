@@ -1,3 +1,4 @@
+/* TODO: change LOG GRID to CSS GRID */
 .t-grid-row {
     border-bottom: 1px solid var(--q-primary);
     cursor: pointer;
@@ -15,4 +16,17 @@
 
 .t-grid-col-type {
     border-right: 1px solid var(--q-primary);
+}
+
+/* CSS grid */
+.t-grid {
+    display: grid;
+}
+
+.t-grid.rows {
+    grid-auto-flow: row;
+}
+
+.t-grid.cols {
+    grid-auto-flow: column;
 }

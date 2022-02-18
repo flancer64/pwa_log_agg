@@ -44,14 +44,15 @@ export default class Fl64_Log_Agg_Back_WAPI_Add {
                 const req = context.getInData();
                 /** @type {Fl64_Log_Agg_Shared_WAPI_Add.Response} */
                 const res = context.getOutData();
-                const trx = await rdb.startTransaction();
+                // const trx = await rdb.startTransaction();
                 try {
+                    // TODO: we should not save logs, just re-translate.
                     /** @type {Fl64_Log_Agg_Back_Store_RDb_Schema_Log.Dto} */
                     const data = convert.wapiToRdb(req);
                     // noinspection JSValidateTypes
-                    const {id} = await crud.create(trx, rdbLog, data);
-                    await trx.commit();
-                    res.id = id;
+                    // const {id} = await crud.create(trx, rdbLog, data);
+                    // await trx.commit();
+                    // res.id = id;
                     // publish new log event to connected fronts
                     const newEntry = convert.rdbToNet(data);
                     for (const one of registry.getAll()) {
@@ -64,7 +65,7 @@ export default class Fl64_Log_Agg_Back_WAPI_Add {
 
                 } catch (e) {
                     logger.error(e);
-                    await trx.rollback();
+                    // await trx.rollback();
                     throw e;
                 }
             }
