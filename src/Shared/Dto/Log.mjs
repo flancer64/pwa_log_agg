@@ -1,5 +1,5 @@
 /**
- * Log item dto.
+ * Log item DTO to transfer data between back and front.
  */
 // MODULE'S VARS
 const NS = 'Fl64_Log_Agg_Shared_Dto_Log';

@@ -31,13 +31,18 @@ export default function (spec) {
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
     /** @type {Fl64_Log_Agg_Front_Rx_Details} */
     const rxDetails = spec['Fl64_Log_Agg_Front_Rx_Details$'];
+    /** @type {typeof TeqFw_Web_Shared_Enum_Log_Type} */
+    const TYPE = spec['TeqFw_Web_Shared_Enum_Log_Type$'];
 
     // WORKING VARS
     const template = `
 <div class="row q-gutter-xs t-grid-row" v-on:click="openDetails">
     <div class="col-auto t-grid-col-date">{{date}}</div>
     <div class="col-auto t-grid-col-type">
-        <q-avatar size="xs" :color="iconColor">{{iconLetter}}</q-avatar>
+        <q-avatar size="xs" :color="iconLevelColor">{{iconLevelLetter}}</q-avatar>
+    </div>
+    <div class="col-auto t-grid-col-type">
+        <q-avatar size="xs" :color="iconTypeColor">{{iconTypeLetter}}</q-avatar>
     </div>
     <div class="col" style="height:20px; overflow: hidden;">{{message}}</div>
 </div>
@@ -66,14 +71,27 @@ export default function (spec) {
                 const item = this?.item;
                 return (item?.date instanceof Date) ? formatDateTimeForLog(item.date) : 'n/a';
             },
+            logType() {
+                return this?.item?.meta?.type;
+            },
             message() {
                 return this?.item?.message;
             },
-            iconColor() {
+            iconLevelColor() {
                 return (this?.item?.isError) ? 'red-2' : 'blue-2';
             },
-            iconLetter() {
+            iconLevelLetter() {
                 return (this?.item?.isError) ? 'E' : 'I';
+            },
+            iconTypeColor() {
+                return (this.logType === TYPE.FRONT) ? 'red-2'
+                    : (this.logType === TYPE.BACK) ? 'blue-2'
+                        : 'grey-2';
+            },
+            iconTypeLetter() {
+                return (this.logType === TYPE.FRONT) ? 'F'
+                    : (this.logType === TYPE.BACK) ? 'B'
+                        : '?';
             }
         },
         methods: {
