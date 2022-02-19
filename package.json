@@ -18,7 +18,7 @@
     "db-init": "node ./bin/tequila.mjs app-db-init",
     "help": "node ./bin/tequila.mjs -h",
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
-    "start": "node ./bin/tequila.mjs web-server-start -1",
+    "start": "node ./bin/tequila.mjs web-server-start",
     "stop": "node ./bin/tequila.mjs web-server-stop",
     "version": "node ./bin/tequila.mjs core-version"
   },
