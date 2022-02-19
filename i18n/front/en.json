@@ -10,5 +10,8 @@
     "uninstall": "Uninstall"
   },
   "wg": {
+    "settings": {
+      "title": "SW Cache"
+    }
   }
 }
