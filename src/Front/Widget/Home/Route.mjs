@@ -16,6 +16,8 @@ const LIMIT = 20;
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
+    /** @type {Fl64_Log_Agg_Front_Widget_Home_Filters.vueCompTmpl} */
+    const filters = spec['Fl64_Log_Agg_Front_Widget_Home_Filters$'];
     /** @type {Fl64_Log_Agg_Front_Widget_Home_Item.vueCompTmpl} */
     const logItem = spec['Fl64_Log_Agg_Front_Widget_Home_Item$'];
     /** @type {Fl64_Log_Agg_Front_Widget_Home_Details.vueCompTmpl} */
@@ -30,18 +32,25 @@ export default function (spec) {
     const esbLogsRes = spec['Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response$'];
     /** @type {Fl64_Log_Agg_Shared_Event_Back_Log_Added} */
     const esbAdded = spec['Fl64_Log_Agg_Shared_Event_Back_Log_Added$'];
-
+    /** @type {Fl64_Log_Agg_Front_Rx_Filter_Opts_Front} */
+    const rxOptsFronts = spec['Fl64_Log_Agg_Front_Rx_Filter_Opts_Front$'];
+    /** @type {Fl64_Log_Agg_Front_Rx_Filter_Opts_Back} */
+    const rxOptsBacks = spec['Fl64_Log_Agg_Front_Rx_Filter_Opts_Back$'];
 
     // ENCLOSED VARS
     let subAdd; // subscription for log added events on back
 
     const template = `
 <layout-base>
+    <div class="t-grid rows" style="grid-template-rows: auto 1fr; width: 100%; justify-items: center;">
+        <filters/>
+        <q-scroll-area style="width:100%; height: calc(100vh - var(--dim-topBar-h)- var(--dim-bottomBar-h))"
+        >
+            
+            <log-item v-for="(item) in items" :item="item"></log-item>
+        </q-scroll-area>
+    </div>
     <dialog-details/>
-    <q-scroll-area style="width:100%; height: calc(100vh - var(--dim-topBar-h)- var(--dim-bottomBar-h))"
-    >
-        <log-item v-for="(item) in items" :item="item"></log-item>
-    </q-scroll-area>
 </layout-base>
 `;
 
@@ -56,7 +65,7 @@ export default function (spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {logItem, dialogDetails},
+        components: {filters, logItem, dialogDetails},
         data() {
             return {
                 items: [],
@@ -100,12 +109,14 @@ export default function (spec) {
             }
 
             /**
+             * New log entry is received from the back. Add entry to display and update filters options.
              * @param {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto} data
              */
             function onLogAdded({data}) {
-                // noinspection JSValidateTypes
-                const dto = esbAdded.createDto({data});
-                me.items.unshift(dto.data.item);
+                const log = data?.item;
+                me.items.unshift(log);
+                rxOptsFronts.addItem(log?.meta?.frontUuid);
+                rxOptsBacks.addItem(log?.meta?.backUuid);
             }
 
             // MAIN

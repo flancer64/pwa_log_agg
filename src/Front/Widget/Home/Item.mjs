@@ -33,6 +33,8 @@ export default function (spec) {
     const rxDetails = spec['Fl64_Log_Agg_Front_Rx_Details$'];
     /** @type {typeof TeqFw_Web_Shared_Enum_Log_Type} */
     const TYPE = spec['TeqFw_Web_Shared_Enum_Log_Type$'];
+    /** @type {TeqFw_Core_Shared_Util_Cast.castDate|function} */
+    const castDate = spec['TeqFw_Core_Shared_Util_Cast.castDate'];
 
     // WORKING VARS
     const template = `
@@ -69,7 +71,8 @@ export default function (spec) {
             date() {
                 /** @type {Fl64_Log_Agg_Shared_Dto_Log.Dto} */
                 const item = this?.item;
-                return (item?.date instanceof Date) ? formatDateTimeForLog(item.date) : 'n/a';
+                const date = castDate(item?.date);
+                return (date) ? formatDateTimeForLog(date) : 'n/a';
             },
             logType() {
                 return this?.item?.meta?.type;

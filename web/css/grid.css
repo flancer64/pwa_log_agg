@@ -30,3 +30,8 @@
 .t-grid.cols {
     grid-auto-flow: column;
 }
+
+.t-grid.cols-auto {
+    grid-auto-flow: column;
+    grid-auto-columns: auto;
+}
