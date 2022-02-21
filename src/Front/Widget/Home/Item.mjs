@@ -80,11 +80,14 @@ export default function (spec) {
             message() {
                 return this?.item?.message;
             },
+            isError() {
+                return (this?.item?.level === 1);
+            },
             iconLevelColor() {
-                return (this?.item?.isError) ? 'red-2' : 'blue-2';
+                return (this.isError) ? 'red-2' : 'blue-2';
             },
             iconLevelLetter() {
-                return (this?.item?.isError) ? 'E' : 'I';
+                return (this.isError) ? 'E' : 'I';
             },
             iconTypeColor() {
                 return (this.logType === TYPE.FRONT) ? 'red-2'

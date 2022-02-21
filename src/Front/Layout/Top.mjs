@@ -18,16 +18,19 @@ export default function Factory(spec) {
     const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
-
+    /** @type {Fl64_Log_Agg_Front_UiComp_Home_Route} */
+    const uiHomeRoute = spec['Fl64_Log_Agg_Front_UiComp_Home_Route$'];
 
     // DEFINE WORKING VARS & PROPS
     const template = `
 <q-toolbar>
+    <q-btn dense flat round icon="home" to="${DEF.ROUTE_HOME}"/>
+    <q-btn dense flat round icon="settings" to="${DEF.ROUTE_SETTINGS}"/>
+    <q-btn dense flat round icon="refresh" v-on:click="cleanLogs" v-if="displayRefresh"/>
     <q-space></q-space>
     <q-toolbar-title>{{title}}</q-toolbar-title>
     <q-space></q-space>
-    <q-btn dense flat round icon="home" to="${DEF.ROUTE_HOME}"/>
-    <q-btn dense flat round icon="settings" to="${DEF.ROUTE_SETTINGS}"/>
+    <div>TIME</div>
 </q-toolbar>
 `;
 
@@ -46,8 +49,17 @@ export default function Factory(spec) {
         data() {
             return {};
         },
-        computed: {},
-        methods: {},
+        computed: {
+            displayRefresh() {
+                return this.$route.path === DEF.ROUTE_HOME;
+            }
+        },
+        methods: {
+            cleanLogs() {
+                const ui = uiHomeRoute.get();
+                ui.cleanLogs();
+            },
+        },
     };
 }
 

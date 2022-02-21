@@ -36,6 +36,8 @@ export default function (spec) {
     const rxOptsFronts = spec['Fl64_Log_Agg_Front_Rx_Filter_Opts_Front$'];
     /** @type {Fl64_Log_Agg_Front_Rx_Filter_Opts_Back} */
     const rxOptsBacks = spec['Fl64_Log_Agg_Front_Rx_Filter_Opts_Back$'];
+    /** @type {Fl64_Log_Agg_Front_UiComp_Home_Route} */
+    const uiHomeRoute = spec['Fl64_Log_Agg_Front_UiComp_Home_Route$'];
 
     // ENCLOSED VARS
     let subAdd; // subscription for log added events on back
@@ -46,7 +48,6 @@ export default function (spec) {
         <filters/>
         <q-scroll-area style="width:100%; height: calc(100vh - var(--dim-topBar-h)- var(--dim-bottomBar-h))"
         >
-            
             <log-item v-for="(item) in items" :item="item"></log-item>
         </q-scroll-area>
     </div>
@@ -70,6 +71,11 @@ export default function (spec) {
             return {
                 items: [],
             };
+        },
+        methods: {
+            cleanLogs() {
+                this.items = [];
+            }
         },
         async mounted() {
             // ENCLOSED VARS
@@ -105,7 +111,6 @@ export default function (spec) {
                     event.data.limit = LIMIT;
                     portalBack.publish(event);
                 });
-
             }
 
             /**
@@ -115,12 +120,16 @@ export default function (spec) {
             function onLogAdded({data}) {
                 const log = data?.item;
                 me.items.unshift(log);
+                me.items.sort((a, b) => (a.date > b.date) ? -1 : 1); // reverse order
                 rxOptsFronts.addItem(log?.meta?.frontUuid);
                 rxOptsBacks.addItem(log?.meta?.backUuid);
             }
 
             // MAIN
-            this.items = await requestItems();
+            uiHomeRoute.set(this);
+            // TODO: we don't have saved logs on the back more
+            const loaded = await requestItems();
+            this.items = loaded;
             // remove old subscription and create new one
             if (subAdd) eventsFront.unsubscribe(subAdd);
             subAdd = eventsFront.subscribe(esbAdded.getEventName(), onLogAdded);
