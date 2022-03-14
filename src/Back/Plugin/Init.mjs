@@ -16,9 +16,9 @@ export default function Factory(spec) {
     const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
 
 
-    // ENCLOSED FUNCTIONS
+    // FUNCS
     async function init() {
-        // ENCLOSED FUNCTIONS
+        // FUNCS
         /**
          * Get local configuration and initialize DB connection.
          * Place connection object as 'TeqFw_Db_Back_RDb_IConnect' singleton to DI-container.
@@ -34,7 +34,7 @@ export default function Factory(spec) {
         // MAIN
         await initDb();
         // TODO: move it to core
-        await container.get('Fl64_Log_Agg_Back_Proc_Load_Logs$');
+        await container.get('Fl64_Log_Agg_Back_Hand_Load_Logs$');
     }
 
     // MAIN

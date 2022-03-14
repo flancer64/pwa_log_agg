@@ -48,7 +48,7 @@ export default class Fl64_Log_Agg_Front_App {
         /** @type {TeqFw_Web_Front_Mod_App_Alive} */
         const modAlive = spec['TeqFw_Web_Front_Mod_App_Alive$'];
 
-        // ENCLOSED VARS
+        // VARS
         let _isInitialized = false; // application is initialized and can be mounted
         let _root; // root vue component for the application
 
@@ -64,7 +64,7 @@ export default class Fl64_Log_Agg_Front_App {
          * @return {Promise<void>}
          */
         this.init = async function (cssSelector) {
-            // ENCLOSED FUNCTIONS
+            // FUNCS
 
             /**
              * Create printout function to log application startup events (to page or to console).
@@ -87,7 +87,8 @@ export default class Fl64_Log_Agg_Front_App {
             async function initEventProcessors(container) {
                 // TODO: init from 'teqfw.json'
                 // Some processes (authentication) should be subscribed to events before Reverse Stream can be opened.
-                // await container.get('Fl64_Log_Agg_Front_Proc_Connect_Manager$');
+                await container.get('Fl64_Log_Agg_Front_Hand_Connect_Manager$');
+                await container.get('Fl64_Log_Agg_Front_Hand_Log_Received$');
             }
 
             /**
@@ -155,11 +156,11 @@ export default class Fl64_Log_Agg_Front_App {
                 // setup application routes (load es6-module on demand with DI-container)
                 router.addRoute({
                     path: DEF.ROUTE_HOME,
-                    component: () => container.get('Fl64_Log_Agg_Front_Widget_Home_Route$'),
+                    component: () => container.get('Fl64_Log_Agg_Front_Ui_Home_Route$'),
                 });
                 router.addRoute({
                     path: DEF.ROUTE_SETTINGS,
-                    component: () => container.get('Fl64_Log_Agg_Front_Widget_Settings_Route$'),
+                    component: () => container.get('Fl64_Log_Agg_Front_Ui_Settings_Route$'),
                 });
 
                 app.use(router);

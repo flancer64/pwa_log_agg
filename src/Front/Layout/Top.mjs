@@ -15,11 +15,12 @@ const NS = 'Fl64_Log_Agg_Front_Layout_Top';
  */
 export default function Factory(spec) {
     // EXTRACT DEPS
-    const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
-    /** @type {Fl64_Log_Agg_Front_UiComp_Home_Route} */
-    const uiHomeRoute = spec['Fl64_Log_Agg_Front_UiComp_Home_Route$'];
+    /** @type {Fl64_Log_Agg_Front_Layout_Top_Time.vueCompTmpl} */
+    const teqTime = spec['Fl64_Log_Agg_Front_Layout_Top_Time$'];
+    /** @type {Fl64_Log_Agg_Front_Mod_Logs} */
+    const modLogs = spec['Fl64_Log_Agg_Front_Mod_Logs$'];
 
     // DEFINE WORKING VARS & PROPS
     const template = `
@@ -30,7 +31,7 @@ export default function Factory(spec) {
     <q-space></q-space>
     <q-toolbar-title>{{title}}</q-toolbar-title>
     <q-space></q-space>
-    <div>TIME</div>
+    <teq-time/>
 </q-toolbar>
 `;
 
@@ -45,7 +46,7 @@ export default function Factory(spec) {
         teq: {package: DEF.SHARED.NAME},
         name: NS,
         template,
-        components: {},
+        components: {teqTime},
         data() {
             return {};
         },
@@ -56,8 +57,7 @@ export default function Factory(spec) {
         },
         methods: {
             cleanLogs() {
-                const ui = uiHomeRoute.get();
-                ui.cleanLogs();
+                modLogs.clear();
             },
         },
     };

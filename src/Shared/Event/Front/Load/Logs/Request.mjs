@@ -28,10 +28,10 @@ export default class Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request {
         /** @type {TeqFw_Core_Shared_Util_Cast.castInt|function} */
         const castInt = spec['TeqFw_Core_Shared_Util_Cast.castInt'];
 
-        // ENCLOSED VARS
+        // VARS
         const ATTR = dtoBase.getAttributes();
 
-        // ENCLOSED FUNCTIONS
+        // FUNCS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request.Dto} [data]
          * @return {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request.Dto}

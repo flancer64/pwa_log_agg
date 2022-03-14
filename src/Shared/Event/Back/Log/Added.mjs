@@ -28,10 +28,10 @@ export default class Fl64_Log_Agg_Shared_Event_Back_Log_Added {
         /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
         const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
 
-        // ENCLOSED VARS
+        // VARS
         const ATTR = dtoBase.getAttributes();
 
-        // ENCLOSED FUNCTIONS
+        // FUNCS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto} [data]
          * @return {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto}

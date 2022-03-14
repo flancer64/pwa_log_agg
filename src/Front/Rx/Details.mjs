@@ -6,7 +6,7 @@ export default class Fl64_Log_Agg_Front_Rx_Details {
         // EXTRACT DEPS
         const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
 
-        // ENCLOSED VARS
+        // VARS
         const _item = ref(null);
         const _display = ref(false);
 

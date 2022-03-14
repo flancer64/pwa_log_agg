@@ -14,14 +14,13 @@ const NS = 'Fl64_Log_Agg_Front_Layout_Base';
  * @returns {Fl64_Log_Agg_Front_Layout_Base.vueCompTmpl}
  */
 export default function Factory(spec) {
-    // EXTRACT DEPS
-    const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
+    // DEPS
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
     /** @type {Fl64_Log_Agg_Front_Layout_Top.vueCompTmpl} */
     const topBar = spec['Fl64_Log_Agg_Front_Layout_Top$'];
 
-    // DEFINE WORKING VARS & PROPS
+    // VARS
     const template = `
 <q-layout view="lHr lpR lFr">
 
@@ -53,7 +52,6 @@ export default function Factory(spec) {
                 title: 'TeqFW Logs Monitor',
             };
         },
-        methods: {},
     };
 }
 

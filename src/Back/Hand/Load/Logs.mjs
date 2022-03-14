@@ -1,9 +1,9 @@
 /**
  * Load the latest logs when front start monitoring.
  *
- * @namespace Fl64_Log_Agg_Back_Proc_Load_Logs
+ * @namespace Fl64_Log_Agg_Back_Hand_Load_Logs
  */
-export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
+export default class Fl64_Log_Agg_Back_Hand_Load_Logs {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {TeqFw_Core_Shared_Api_ILogger} */
@@ -25,14 +25,14 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
         /** @type {Fl64_Log_Agg_Back_Mod_Convert_LogEntry} */
         const convert = spec['Fl64_Log_Agg_Back_Mod_Convert_LogEntry$'];
 
-        // ENCLOSED VARS
+        // VARS
         /** @type {typeof Fl64_Log_Agg_Back_Store_RDb_Schema_Log.ATTR} */
         const A_LOG = rdbLog.getAttributes();
 
         // MAIN
         eventsBack.subscribe(esfLogsReq.getEventName(), onRequest)
 
-        // ENCLOSED FUNCS
+        // FUNCS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request.Dto} data
          * @param {TeqFw_Web_Shared_App_Event_Trans_Message_Meta.Dto} meta
@@ -57,6 +57,7 @@ export default class Fl64_Log_Agg_Back_Proc_Load_Logs {
                 const event = esbLogsRes.createDto();
                 event.meta.frontUUID = meta.frontUUID;
                 event.data.items = items;
+                event.data.requestEventUuid = meta.uuid;
                 // noinspection ES6MissingAwait
                 portalFront.publish(event);
             } catch (error) {

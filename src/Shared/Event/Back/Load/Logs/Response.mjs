@@ -15,6 +15,8 @@ class Dto {
      * @type {Fl64_Log_Agg_Shared_Dto_Log.Dto[]}
      */
     items;
+    /** @type {string} */
+    requestEventUuid;
 }
 
 /**
@@ -29,11 +31,13 @@ export default class Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response {
         const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
         /** @type {TeqFw_Core_Shared_Util_Cast.castArrayOfObj|function} */
         const castArrayOfObj = spec['TeqFw_Core_Shared_Util_Cast.castArrayOfObj'];
+        /** @type {TeqFw_Core_Shared_Util_Cast.castString|function} */
+        const castString = spec['TeqFw_Core_Shared_Util_Cast.castString'];
 
-        // ENCLOSED VARS
+        // VARS
         const ATTR = dtoBase.getAttributes();
 
-        // ENCLOSED FUNCTIONS
+        // FUNCS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response.Dto} [data]
          * @return {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response.Dto}
@@ -41,6 +45,7 @@ export default class Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response {
         function createData(data) {
             const res = new Dto();
             res.items = castArrayOfObj(data?.items, dtoLog.createDto);
+            res.requestEventUuid = castString(data?.requestEventUuid);
             return res;
         }
 

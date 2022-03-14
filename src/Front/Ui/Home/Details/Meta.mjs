@@ -1,17 +1,17 @@
 /**
  * Meta data for log entry in details dialog.
  *
- * @namespace Fl64_Log_Agg_Front_Widget_Home_Details_Meta
+ * @namespace Fl64_Log_Agg_Front_Ui_Home_Details_Meta
  */
 // MODULE'S VARS
-const NS = 'Fl64_Log_Agg_Front_Widget_Home_Details_Meta';
+const NS = 'Fl64_Log_Agg_Front_Ui_Home_Details_Meta';
 
 // MODULE'S FUNCTIONS
 
 /**
  * Factory to create template for new Vue component instances.
  *
- * @returns {Fl64_Log_Agg_Front_Widget_Home_Details_Meta.vueCompTmpl}
+ * @returns {Fl64_Log_Agg_Front_Ui_Home_Details_Meta.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
@@ -30,7 +30,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl64_Log_Agg_Front_Widget_Home_Details_Meta
+     * @memberOf Fl64_Log_Agg_Front_Ui_Home_Details_Meta
      */
     return {
         teq: {package: DEF.SHARED.NAME},

@@ -1,25 +1,25 @@
 /**
  * Dialog widget to view log entry details.
  *
- * @namespace Fl64_Log_Agg_Front_Widget_Home_Details
+ * @namespace Fl64_Log_Agg_Front_Ui_Home_Details
  */
 // MODULE'S VARS
-const NS = 'Fl64_Log_Agg_Front_Widget_Home_Details';
+const NS = 'Fl64_Log_Agg_Front_Ui_Home_Details';
 
 // MODULE'S FUNCTIONS
 
 /**
  * Factory to create template for new Vue component instances.
  *
- * @returns {Fl64_Log_Agg_Front_Widget_Home_Details.vueCompTmpl}
+ * @returns {Fl64_Log_Agg_Front_Ui_Home_Details.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
     /** @type {Fl64_Log_Agg_Front_Rx_Details} */
     const rxDetails = spec['Fl64_Log_Agg_Front_Rx_Details$'];
-    /** @type {Fl64_Log_Agg_Front_Widget_Home_Details_Meta.vueCompTmpl} */
-    const logMeta = spec['Fl64_Log_Agg_Front_Widget_Home_Details_Meta$'];
+    /** @type {Fl64_Log_Agg_Front_Ui_Home_Details_Meta.vueCompTmpl} */
+    const logMeta = spec['Fl64_Log_Agg_Front_Ui_Home_Details_Meta$'];
 
     // WORKING VARS
     const template = `
@@ -47,7 +47,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl64_Log_Agg_Front_Widget_Home_Details
+     * @memberOf Fl64_Log_Agg_Front_Ui_Home_Details
      */
     return {
         teq: {package: DEF.SHARED.NAME},

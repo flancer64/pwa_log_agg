@@ -1,16 +1,16 @@
 /**
  * 'Config' route.
  *
- * @namespace Fl64_Log_Agg_Front_Widget_Settings_Route
+ * @namespace Fl64_Log_Agg_Front_Ui_Settings_Route
  */
 // MODULE'S VARS
-const NS = 'Fl64_Log_Agg_Front_Widget_Settings_Route';
+const NS = 'Fl64_Log_Agg_Front_Ui_Settings_Route';
 
 // MODULE'S FUNCTIONS
 /**
  * Factory to create template for new Vue component instances.
  *
- * @returns {Fl64_Log_Agg_Front_Widget_Settings_Route.vueCompTmpl}
+ * @returns {Fl64_Log_Agg_Front_Ui_Settings_Route.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
@@ -41,7 +41,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl64_Log_Agg_Front_Widget_Settings_Route
+     * @memberOf Fl64_Log_Agg_Front_Ui_Settings_Route
      */
     return {
         teq: {package: DEF.SHARED.NAME},

@@ -1,10 +1,10 @@
 /**
  * 'Log Item' widget.
  *
- * @namespace Fl64_Log_Agg_Front_Widget_Home_Item
+ * @namespace Fl64_Log_Agg_Front_Ui_Home_Item
  */
 // MODULE'S VARS
-const NS = 'Fl64_Log_Agg_Front_Widget_Home_Item';
+const NS = 'Fl64_Log_Agg_Front_Ui_Home_Item';
 
 // MODULE'S FUNCTIONS
 /**
@@ -24,7 +24,7 @@ function formatDateTimeForLog(date) {
 /**
  * Factory to create template for new Vue component instances.
  *
- * @returns {Fl64_Log_Agg_Front_Widget_Home_Item.vueCompTmpl}
+ * @returns {Fl64_Log_Agg_Front_Ui_Home_Item.vueCompTmpl}
  */
 export default function (spec) {
     /** @type {Fl64_Log_Agg_Front_Defaults} */
@@ -53,7 +53,7 @@ export default function (spec) {
      * Template to create new component instances using Vue.
      *
      * @const {Object} vueCompTmpl
-     * @memberOf Fl64_Log_Agg_Front_Widget_Home_Item
+     * @memberOf Fl64_Log_Agg_Front_Ui_Home_Item
      */
     return {
         teq: {package: DEF.SHARED.NAME},

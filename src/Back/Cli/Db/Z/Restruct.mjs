@@ -27,7 +27,7 @@ export default function Factory(spec) {
     /** @type {TeqFw_Db_Back_Dem_Load} */
     const demLoad = spec['TeqFw_Db_Back_Dem_Load$'];
 
-    // ENCLOSED FUNCS
+    // FUNCS
     /**
      * Action to re-create database structure (drop-create tables).
      * @returns {Promise<void>}
