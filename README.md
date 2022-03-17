@@ -18,7 +18,7 @@ Logs monitoring PWA consists of 3 parts:
 
 This is screenshot of `Agg Front`:
 
-![Front Demo](./doc/img/log_agg_front_demo_list.png)
+![Web UI List](./doc/img/log_agg_front_demo_list.png)
 
 It's a list of log entries with one filter (by `dup-prot` front UUID, I need one only filter now).
 
@@ -55,14 +55,14 @@ This is valid JSON for incoming logs that aggregator can process:
 
 Metadata is displayed in details as "key:value" pairs:
 
-![Front Demo](./doc/img/log_agg_front_demo_details.png)
+![Web UI Details](./doc/img/log_agg_front_demo_details.png)
 
 ## Filters
 
 Developer can filter log entries in `Agg Front` using metadata. I use one only filter now - by `front UUID` (this is a
 front of `dup-proto` app).
 
-![Front Demo](./doc/img/log_agg_front_demo_filter.png)
+![Web UI Filter](./doc/img/log_agg_front_demo_filter.png)
 
 ## Resume
 
