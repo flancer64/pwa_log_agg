@@ -27,6 +27,7 @@ export default function (spec) {
     <q-card>
         <q-card-section>
             <div class="text-h6">{{item.source}}</div>
+            <div style="font-weight: bold">{{item.date}}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
