@@ -12,8 +12,8 @@ const NS = 'Fl64_Log_Agg_Back_WAPI_Add';
 export default class Fl64_Log_Agg_Back_WAPI_Add {
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Core_Shared_Logger} */
-        const logger = spec['TeqFw_Core_Shared_Logger$'];
+        /** @type {TeqFw_Core_Shared_Api_ILogger} */
+        const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
         /** @type {Fl64_Log_Agg_Shared_WAPI_Add.Factory} */
         const route = spec['Fl64_Log_Agg_Shared_WAPI_Add.Factory$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
@@ -31,7 +31,10 @@ export default class Fl64_Log_Agg_Back_WAPI_Add {
         /** @type {Fl64_Log_Agg_Back_Mod_Convert_LogEntry} */
         const convert = spec['Fl64_Log_Agg_Back_Mod_Convert_LogEntry$'];
 
-        // DEFINE INSTANCE METHODS
+        // MAIN
+        logger.setNamespace(this.constructor.namespace);
+
+        // INSTANCE METHODS
         this.getRouteFactory = () => route;
 
         this.getService = function () {

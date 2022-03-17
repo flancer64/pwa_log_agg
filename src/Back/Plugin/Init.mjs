@@ -34,6 +34,7 @@ export default function Factory(spec) {
         // MAIN
         await initDb();
         // TODO: move it to core
+        await container.get('Fl64_Log_Agg_Back_Cron_Logs_CleanUp$');
         await container.get('Fl64_Log_Agg_Back_Hand_Load_Logs$');
     }
 

@@ -16,11 +16,9 @@ Logs monitoring PWA consists of 3 parts:
 * `Agg DB`: RDB (MySQL/PostgreSQL/SQLite), stores the latest logs (the last 100 entries or today's logs).
 * `Agg Front`: PWA in browser, filters and displays received logs to developers.
 
-This is screenshot of `Agg Front`:
+A screenshot of `Agg Front`:
 
 ![Web UI List](./doc/img/log_agg_front_demo_list.png)
-
-It's a list of log entries with one filter (by `dup-prot` front UUID, I need one only filter now).
 
 ## Log entry structure
 

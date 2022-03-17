@@ -22,8 +22,8 @@ export default function Factory(spec) {
     // EXTRACT DEPS
     /** @type {Fl64_Log_Agg_Back_Defaults} */
     const DEF = spec['Fl64_Log_Agg_Back_Defaults$'];
-    /** @type {TeqFw_Core_Shared_Logger} */
-    const logger = spec['TeqFw_Core_Shared_Logger$'];
+    /** @type {TeqFw_Core_Shared_Api_ILogger} */
+    const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
     /** @type {TeqFw_Db_Back_RDb_IConnect} */
     const conn = spec['TeqFw_Db_Back_RDb_IConnect$'];
     /** @type {TeqFw_Core_Back_Api_Dto_Command.Factory} */
@@ -54,6 +54,7 @@ export default function Factory(spec) {
         await conn.disconnect();
     }
 
+    logger.setNamespace(NS);
     Object.defineProperty(action, 'name', {value: `${NS}.action`});
 
     // COMPOSE RESULT

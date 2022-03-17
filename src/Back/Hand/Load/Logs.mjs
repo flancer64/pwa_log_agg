@@ -7,7 +7,7 @@ export default class Fl64_Log_Agg_Back_Hand_Load_Logs {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {TeqFw_Core_Shared_Api_ILogger} */
-        const logger = spec['TeqFw_Core_Shared_Api_ILogger$'];
+        const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -30,6 +30,7 @@ export default class Fl64_Log_Agg_Back_Hand_Load_Logs {
         const A_LOG = rdbLog.getAttributes();
 
         // MAIN
+        logger.setNamespace(this.constructor.namespace);
         eventsBack.subscribe(esfLogsReq.getEventName(), onRequest)
 
         // FUNCS
