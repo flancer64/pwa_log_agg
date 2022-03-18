@@ -30,7 +30,7 @@
     "@teqfw/test": "github:teqfw/test#bf92f0ef7832e61b80614a7bd250e77dcbbd37ba",
     "@teqfw/ui-quasar": "github:teqfw/ui-quasar#ded90455f5d56b5e3ae6915222323d9b708f7de2",
     "@teqfw/vue": "github:teqfw/vue#0b93862cd7ab897f6241ca77281a5955be7d1b2f",
-    "@teqfw/web": "github:teqfw/web#b6b07db0dbaaece9b86358845b68fc506173c87e",
+    "@teqfw/web": "github:teqfw/web#fe59c81cc07a6928bc651ae201177b6a84bdbfa8",
     "pg": "*"
   }
 }
