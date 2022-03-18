@@ -5,6 +5,8 @@ _Proof of Concept_ than a real, full-featured application but this service helps
 fronts of `dup-proto` project can send own logs to project's back then `dup-proto` back sends own logs and fronts' logs
 to this aggregator.
 
+You can see live demo at https://dup.log.flancer64.com/#/
+
 ## Overview
 
 ![Log Agg Architecture](doc/img/log_agg_arch.png)
@@ -64,11 +66,8 @@ front of `dup-proto` app).
 
 ## Resume
 
-This logs monitoring service is just a tool that helps me in development of web apps. You can see live demo
-at https://dup.log.flancer64.com/#/ This log aggregator is used
-in demo of [flancer32/dup-proto](https://github.com/flancer32/dup-proto) project.
-
-In case of someone wants to try similar logs monitoring for developers in own projects, please contact me:
+This logs monitoring service is just a tool that helps me in development of web apps. In case of someone wants to try
+similar logs monitoring for developers in own projects, please contact me:
 
 * **email**: alex@flancer32.com
 * **skype**: alex.gusev.work
