@@ -64,8 +64,11 @@ front of `dup-proto` app).
 
 ## Resume
 
-This logs monitoring service is just a tool that helps me in development of web apps. In case of someone wants to try
-similar logs monitoring for developers in own projects, please contact me:
+This logs monitoring service is just a tool that helps me in development of web apps. You can see live demo
+at https://dup.log.flancer64.com/#/ This log aggregator is used
+in demo of [flancer32/dup-proto](https://github.com/flancer32/dup-proto) project.
+
+In case of someone wants to try similar logs monitoring for developers in own projects, please contact me:
 
 * **email**: alex@flancer32.com
 * **skype**: alex.gusev.work
