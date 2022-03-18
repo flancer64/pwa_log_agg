@@ -1,6 +1,6 @@
 {
   "name": "@flancer64/pwa_log_agg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Simple service to aggregate logs and monitor it using browser.",
   "homepage": "https://github.com/flancer64/pwa_log_agg/",
   "bugs": {
