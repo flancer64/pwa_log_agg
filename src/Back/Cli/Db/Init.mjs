@@ -43,7 +43,6 @@ export default function Factory(spec) {
         // FUNCS
 
         // MAIN FUNCTIONALITY
-        logger.pause(false);
         const testData = opts[OPT_TEST];
         // const trx = await conn.startTransaction();
         // recreate DB structure

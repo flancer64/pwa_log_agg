@@ -193,7 +193,6 @@ export default class Fl64_Log_Agg_Front_App {
 
 
             // other initialization
-            // logger.pause(false);
             if (await modAlive.check()) {
                 await config.init({}); // this app has no separate 'doors' (entry points)
                 print(`Application config is loaded.`);
