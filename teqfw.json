@@ -22,10 +22,6 @@
     },
     "services": [
       "Fl64_Log_Agg_Back_WAPI_Add"
-    ],
-    "statics": {
-      "/element-plus/": "/element-plus/dist/",
-      "/element-plus-icons/": "/@element-plus/icons-vue/dist/"
-    }
+    ]
   }
 }

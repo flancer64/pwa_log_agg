@@ -127,15 +127,17 @@ export default class Fl64_Log_Agg_Front_Mod_Logs {
             _frontUuids.length = 0;
             // process all log entries and init filters options
             for (const one of entries) {
-                _logsAll.unshift(one);
+                _logsAll.push(one);
                 addFrontUuid(one?.meta?.frontUuid);
             }
             _logsAll.sort((a, b) => (a.date > b.date) ? -1 : 1); // reverse order
             resetFilterFrontUuid();
             // put log entries to UI widgets (all or filtered only)
             const wgHome = wgHomeRoute.get();
-            if (_frontUuidSelected === undefined) wgHome.setLogs(_logsAll);
-            else this.filterByFrontUuid(_frontUuidSelected);
+            if (_frontUuidSelected === undefined) {
+                _logsDisplay.push(..._logsAll);
+                wgHome.setLogs(_logsDisplay);
+            } else this.filterByFrontUuid(_frontUuidSelected);
         }
     }
 }
