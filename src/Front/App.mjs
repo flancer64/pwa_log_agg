@@ -14,6 +14,9 @@
 const NS = 'Fl64_Log_Agg_Front_App';
 
 // MODULE'S CLASSES
+/**
+ * @implements TeqFw_Web_Front_Api_IApp
+ */
 export default class Fl64_Log_Agg_Front_App {
     constructor(spec) {
         // EXTRACT DEPS
@@ -25,18 +28,16 @@ export default class Fl64_Log_Agg_Front_App {
         const container = spec['TeqFw_Di_Shared_Container$'];
         /** @type {TeqFw_Core_Shared_Api_ILogger} */
         const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
-        /** @type {TeqFw_I18n_Front_Lib} */
-        const I18nLib = spec['TeqFw_I18n_Front_Lib$'];
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {Fl64_Log_Agg_Front_Layout_Base} */
         const layoutBase = spec['Fl64_Log_Agg_Front_Layout_Base$'];
         /** @type {Fl64_Log_Agg_Front_Layout_Top.vueCompTmpl} */
         const topBar = spec['Fl64_Log_Agg_Front_Layout_Top$'];
-        /** @type {TeqFw_Web_Front_Mod_Config} */
-        const config = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {TeqFw_Web_Front_Mod_App_Front_Identity} */
-        const frontIdentity = spec['TeqFw_Web_Front_Mod_App_Front_Identity$'];
+        /** @type {TeqFw_Web_Api_Front_Mod_Config} */
+        const config = spec['TeqFw_Web_Api_Front_Mod_Config$'];
+        /** @type {TeqFw_Web_Api_Front_Mod_App_Front_Identity} */
+        const frontIdentity = spec['TeqFw_Web_Api_Front_Mod_App_Front_Identity$'];
         /** @type {TeqFw_Web_Front_App_Connect_Event_Reverse} */
         const streamBf = spec['TeqFw_Web_Front_App_Connect_Event_Reverse$'];
         /** @type {TeqFw_Web_Front_App_Event_Bus} */
@@ -45,8 +46,8 @@ export default class Fl64_Log_Agg_Front_App {
         const esbAuthenticated = spec['TeqFw_Web_Shared_Event_Back_Stream_Reverse_Authenticated$'];
         /** @type {TeqFw_Web_Shared_Event_Back_Stream_Reverse_Failed} */
         const esbFailed = spec['TeqFw_Web_Shared_Event_Back_Stream_Reverse_Failed$'];
-        /** @type {TeqFw_Web_Front_Mod_App_Alive} */
-        const modAlive = spec['TeqFw_Web_Front_Mod_App_Alive$'];
+        /** @type {TeqFw_I18n_Front_Mod_I18n} */
+        const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
@@ -57,26 +58,16 @@ export default class Fl64_Log_Agg_Front_App {
 
         // INSTANCE METHODS
 
-        /**
-         * Initialize application.
-         *
-         * @param {string} cssSelector DIV to trace initialization process
-         * @return {Promise<void>}
-         */
-        this.init = async function (cssSelector) {
+        this.init = async function (fnPrintout) {
             // FUNCS
 
             /**
              * Create printout function to log application startup events (to page or to console).
-             * @param {string} css
-             * @return {(function(string))|*}
+             * @param {function(string)} fn
+             * @return {function(string)}
              */
-            function createPrintout(css) {
-                const elDisplay = document.querySelector(cssSelector);
-                return function (msg) {
-                    if (elDisplay) elDisplay.innerText = msg;
-                    else console.log(msg);
-                }
+            function createPrintout(fn) {
+                return (typeof fn === 'function') ? fn : (msg) => console.log(msg);
             }
 
             /**
@@ -99,18 +90,20 @@ export default class Fl64_Log_Agg_Front_App {
              */
             async function initEventStream(container) {
                 return new Promise((resolve, reject) => {
-                    streamBf.open();
-                    const subsSuccess = eventBus.subscribe(esbAuthenticated.getEventName(), (evt) => {
-                        eventBus.unsubscribe(subsSuccess);
-                        logger.info(`Events reverse stream is opened on the front and authenticated by back.`);
-                        resolve(evt);
-                    });
-                    const subsFailed = eventBus.subscribe(esbFailed.getEventName(), (evt) => {
-                        // TODO: this event is not published by back yet
-                        eventBus.unsubscribe(subsFailed);
-                        debugger
-                        reject(new Error(evt?.data?.reason));
-                    });
+                    if (navigator.onLine) {
+                        streamBf.open();
+                        const subsSuccess = eventBus.subscribe(esbAuthenticated.getEventName(), (evt) => {
+                            eventBus.unsubscribe(subsSuccess);
+                            logger.info(`Events reverse stream is opened on the front and authenticated by back.`);
+                            resolve(evt);
+                        });
+                        const subsFailed = eventBus.subscribe(esbFailed.getEventName(), (evt) => {
+                            // TODO: this event is not published by back yet
+                            eventBus.unsubscribe(subsFailed);
+                            debugger
+                            reject(new Error(evt?.data?.reason));
+                        });
+                    } else resolve();
                 });
             }
 
@@ -118,15 +111,14 @@ export default class Fl64_Log_Agg_Front_App {
              * Setup working languages and fallback language and add translation function to the Vue.
              *
              * @param {Object} app
-             * @param {TeqFw_I18n_Front_Lib} I18nLib
              * @return {Promise<void>}
              * @memberOf Fl64_Log_Agg_Front_App.init
              */
-            async function initI18n(app, I18nLib) {
-                await I18nLib.init(['en', 'ru'], 'en');
-                const appProps = app.config.globalProperties;
-                const i18n = I18nLib.getI18n();
+            async function initI18n(app) {
+                await modI18n.init(['en', 'ru'], 'en');
+                const i18n = modI18n.getI18n();
                 // add translation function to Vue
+                const appProps = app.config.globalProperties;
                 // noinspection JSPrimitiveTypeWrapperUsage
                 appProps.$t = function (key, options) {
                     // add package name if namespace is omitted in the key
@@ -168,7 +160,7 @@ export default class Fl64_Log_Agg_Front_App {
             }
 
             // MAIN
-            const print = createPrintout(cssSelector);
+            const print = createPrintout(fnPrintout);
             print(`TeqFW App is initializing...`);
 
             // create root vue component
@@ -193,30 +185,26 @@ export default class Fl64_Log_Agg_Front_App {
 
 
             // other initialization
-            if (await modAlive.check()) {
-                await config.init({}); // this app has no separate 'doors' (entry points)
-                print(`Application config is loaded.`);
-                await initI18n(_root, I18nLib);
-                print(`i18n resources are loaded.`);
-                await frontIdentity.init();
-                print(`Front UUID: ${frontIdentity.getUuid()}.`);
-                try {
-                    await initEventStream(container);
-                    print(`Backend events stream is opened.`);
-                    await initEventProcessors(container);
-                    print(`Frontend processes are created.`);
-                    initQuasarUi(_root, quasar);
-                    initUiComponents(_root);
-                    print(`Data sources are initialized.`);
-                    initRouter(_root, DEF, container);
-                    print(`Vue app is created and initialized.`);
-                    _isInitialized = true;
-                } catch (e) {
-                    // TODO: place IDB cleanup here for re-installs
-                    print(e.message);
-                }
-            } else {
-                print(`Backend server is not alive. Cannot continue.`);
+            await config.init({}); // this app has no separate 'doors' (entry points)
+            print(`Application config is loaded.`);
+            await initI18n(_root);
+            print(`i18n resources are loaded.`);
+            await frontIdentity.init();
+            print(`Front UUID: ${frontIdentity.getUuid()}.`);
+            try {
+                await initEventProcessors(container);
+                print(`Frontend processes are created.`);
+                await initEventStream(container);
+                print(`Backend events stream is opened.`);
+                initQuasarUi(_root, quasar);
+                initUiComponents(_root);
+                print(`Data sources are initialized.`);
+                initRouter(_root, DEF, container);
+                print(`Vue app is created and initialized.`);
+                _isInitialized = true;
+            } catch (e) {
+                // TODO: place IDB cleanup here for re-installs
+                print(e.message);
             }
         }
 

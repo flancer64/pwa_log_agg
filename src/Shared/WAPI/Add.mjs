@@ -1,5 +1,5 @@
 /**
- * Route data for WAPI service to add one log entry to aggregator.
+ * Endpoint data for WAPI service to add one log entry to aggregator.
  *
  * @namespace Fl64_Log_Agg_Shared_WAPI_Add
  */
@@ -10,7 +10,7 @@ const NS = 'Fl64_Log_Agg_Shared_WAPI_Add';
 /**
  * @memberOf Fl64_Log_Agg_Shared_WAPI_Add
  */
-export class Request {
+class Request {
     /**
      * Log event date (UTC).
      * @type {Date}
@@ -41,7 +41,7 @@ export class Request {
 /**
  * @memberOf Fl64_Log_Agg_Shared_WAPI_Add
  */
-export class Response {
+class Response {
     /**
      * ID of the aggregated entry.
      * @type {number}
@@ -50,11 +50,9 @@ export class Response {
 }
 
 /**
- * Factory to create new DTOs.
- * @memberOf Fl64_Log_Agg_Shared_WAPI_Add
- * @implements TeqFw_Web_Shared_Api_WAPI_IRoute
+ * @implements TeqFw_Web_Api_Shared_Api_IEndpoint
  */
-export class Factory {
+export default class Fl64_Log_Agg_Shared_WAPI_Add {
     static namespace = NS;
 
     constructor(spec) {
@@ -101,5 +99,5 @@ export class Factory {
 }
 
 // finalize code components for this es6-module
-Object.defineProperty(Request, 'namespace', {value: `${NS}.Request`});
-Object.defineProperty(Response, 'namespace', {value: `${NS}.Response`});
+Object.defineProperty(Request, 'namespace', {value: NS});
+Object.defineProperty(Response, 'namespace', {value: NS});

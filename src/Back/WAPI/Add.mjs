@@ -7,15 +7,15 @@
 const NS = 'Fl64_Log_Agg_Back_WAPI_Add';
 
 /**
- * @implements TeqFw_Web_Back_Api_WAPI_IFactory
+ * @implements TeqFw_Web_Api_Back_Api_Factory_IService
  */
 export default class Fl64_Log_Agg_Back_WAPI_Add {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {TeqFw_Core_Shared_Api_ILogger} */
         const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
-        /** @type {Fl64_Log_Agg_Shared_WAPI_Add.Factory} */
-        const route = spec['Fl64_Log_Agg_Shared_WAPI_Add.Factory$'];
+        /** @type {Fl64_Log_Agg_Shared_WAPI_Add} */
+        const endpoint = spec['Fl64_Log_Agg_Shared_WAPI_Add$'];
         /** @type {TeqFw_Db_Back_RDb_IConnect} */
         const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
         /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */
@@ -35,12 +35,12 @@ export default class Fl64_Log_Agg_Back_WAPI_Add {
         logger.setNamespace(this.constructor.namespace);
 
         // INSTANCE METHODS
-        this.getRouteFactory = () => route;
+        this.getEndpoint = () => endpoint;
 
         this.getService = function () {
             // FUNCS
             /**
-             * @param {TeqFw_Web_Back_App_Server_Handler_WAPI_Context} context
+             * @param {TeqFw_Web_Api_Back_Mod_Request_Context} context
              */
             async function service(context) {
                 /** @type {Fl64_Log_Agg_Shared_WAPI_Add.Request} */
@@ -73,7 +73,7 @@ export default class Fl64_Log_Agg_Back_WAPI_Add {
             }
 
             // MAIN FUNCTIONALITY
-            Object.defineProperty(service, 'name', {value: `${NS}.${service.name}`});
+            Object.defineProperty(service, 'namespace', {value: NS});
             return service;
         }
     }
