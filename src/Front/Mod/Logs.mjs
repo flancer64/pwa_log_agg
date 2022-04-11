@@ -56,7 +56,7 @@ export default class Fl64_Log_Agg_Front_Mod_Logs {
             if (optsLengthBefore !== _frontUuids.length)
                 wgFilters.setOptsFrontUuid(_frontUuids);
             // display on UI
-            if ((_frontUuidSelected === undefined) || (dto?.meta?.frontUuid === _frontUuidSelected)) {
+            if ((_frontUuidSelected === undefined) || (dto?.meta?.frontUuid?.toLowerCase() === _frontUuidSelected)) {
                 _logsDisplay.unshift(dto);
                 _logsDisplay.sort((a, b) => (a.date > b.date) ? -1 : 1); // reverse order
                 const wgHome = wgHomeRoute.get();
@@ -96,7 +96,7 @@ export default class Fl64_Log_Agg_Front_Mod_Logs {
                 _frontUuidSelected = uuid;
                 _logsDisplay.length = 0;
                 for (const one of _logsAll)
-                    if (one?.meta?.frontUuid === _frontUuidSelected) _logsDisplay.push(one);
+                    if (one?.meta?.frontUuid?.toLowerCase() === _frontUuidSelected) _logsDisplay.push(one);
                 _logsDisplay.sort((a, b) => (a.date > b.date) ? -1 : 1); // reverse order
                 wgHome.setLogs(_logsDisplay);
             }
