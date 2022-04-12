@@ -35,7 +35,7 @@ export default class Fl64_Log_Agg_Front_App {
         /** @type {Fl64_Log_Agg_Front_Layout_Top.vueCompTmpl} */
         const topBar = spec['Fl64_Log_Agg_Front_Layout_Top$'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
-        const config = spec['TeqFw_Web_Front_Mod_Config$'];
+        const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
         /** @type {TeqFw_Web_Api_Front_Mod_App_Front_Identity} */
         const frontIdentity = spec['TeqFw_Web_Api_Front_Mod_App_Front_Identity$'];
         /** @type {TeqFw_Web_Front_App_Connect_Event_Reverse} */
@@ -185,7 +185,7 @@ export default class Fl64_Log_Agg_Front_App {
 
 
             // other initialization
-            await config.init({}); // this app has no separate 'doors' (entry points)
+            await modCfg.init({}); // this app has no separate 'doors' (entry points)
             print(`Application config is loaded.`);
             await initI18n(_root);
             print(`i18n resources are loaded.`);
