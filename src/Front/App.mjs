@@ -42,10 +42,10 @@ export default class Fl64_Log_Agg_Front_App {
         const streamBf = spec['TeqFw_Web_Front_App_Connect_Event_Reverse$'];
         /** @type {TeqFw_Web_Front_App_Event_Bus} */
         const eventBus = spec['TeqFw_Web_Front_App_Event_Bus$'];
-        /** @type {TeqFw_Web_Shared_Event_Back_Stream_Reverse_Authenticated} */
-        const esbAuthenticated = spec['TeqFw_Web_Shared_Event_Back_Stream_Reverse_Authenticated$'];
-        /** @type {TeqFw_Web_Shared_Event_Back_Stream_Reverse_Failed} */
-        const esbFailed = spec['TeqFw_Web_Shared_Event_Back_Stream_Reverse_Failed$'];
+        /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated} */
+        const esbAuthenticated = spec['TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated$'];
+        /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Failed} */
+        const esbFailed = spec['TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Failed$'];
         /** @type {TeqFw_I18n_Front_Mod_I18n} */
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
 

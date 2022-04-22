@@ -16,8 +16,8 @@ export default class Fl64_Log_Agg_Back_Hand_Load_Logs {
         const rdbLog = spec['Fl64_Log_Agg_Back_Store_RDb_Schema_Log$'];
         /** @type {TeqFw_Core_Back_App_Event_Bus} */
         const eventsBack = spec['TeqFw_Core_Back_App_Event_Bus$'];
-        /** @type {TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal} */
-        const portalFront = spec['TeqFw_Web_Back_App_Server_Handler_Event_Reverse_Portal$'];
+        /** @type {TeqFw_Web_Event_Back_Mod_Server_Handler_Reverse_Portal} */
+        const portalFront = spec['TeqFw_Web_Event_Back_Mod_Server_Handler_Reverse_Portal$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request} */
         const esfLogsReq = spec['Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response} */
@@ -36,7 +36,7 @@ export default class Fl64_Log_Agg_Back_Hand_Load_Logs {
         // FUNCS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request.Dto} data
-         * @param {TeqFw_Web_Shared_App_Event_Trans_Message_Meta.Dto} meta
+         * @param {TeqFw_Web_Event_Shared_Dto_Event_Meta.Dto} meta
          * @return {Promise<void>}
          */
         async function onRequest({data, meta}) {

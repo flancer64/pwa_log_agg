@@ -23,8 +23,8 @@ class Dto {
 export default class Fl64_Log_Agg_Shared_Event_Back_Log_Added {
     constructor(spec) {
         // EXTRACT DEPS
-        /** @type {TeqFw_Web_Shared_App_Event_Trans_Message} */
-        const dtoBase = spec['TeqFw_Web_Shared_App_Event_Trans_Message$'];
+        /** @type {TeqFw_Web_Event_Shared_Dto_Event} */
+        const dtoBase = spec['TeqFw_Web_Event_Shared_Dto_Event$'];
         /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
         const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
 
@@ -44,8 +44,8 @@ export default class Fl64_Log_Agg_Shared_Event_Back_Log_Added {
 
         // INSTANCE METHODS
         /**
-         * @param {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Shared_App_Event_Trans_Message_Meta.Dto}} [data]
-         * @return {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Shared_App_Event_Trans_Message_Meta.Dto}}
+         * @param {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Event_Shared_Dto_Event_Meta.Dto}} [data]
+         * @return {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Event_Shared_Dto_Event_Meta.Dto}}
          */
         this.createDto = function (data) {
             const res = dtoBase.createDto({[ATTR.META]: data?.[ATTR.META]});
