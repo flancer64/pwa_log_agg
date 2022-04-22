@@ -38,10 +38,10 @@ export default class Fl64_Log_Agg_Front_App {
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
         /** @type {TeqFw_Web_Api_Front_Mod_App_Front_Identity} */
         const frontIdentity = spec['TeqFw_Web_Api_Front_Mod_App_Front_Identity$'];
-        /** @type {TeqFw_Web_Front_App_Connect_Event_Reverse} */
-        const streamBf = spec['TeqFw_Web_Front_App_Connect_Event_Reverse$'];
-        /** @type {TeqFw_Web_Front_App_Event_Bus} */
-        const eventBus = spec['TeqFw_Web_Front_App_Event_Bus$'];
+        /** @type {TeqFw_Web_Event_Front_Mod_Connect_Reverse} */
+        const streamBf = spec['TeqFw_Web_Event_Front_Mod_Connect_Reverse$'];
+        /** @type {TeqFw_Web_Event_Front_Mod_Bus} */
+        const eventBus = spec['TeqFw_Web_Event_Front_Mod_Bus$'];
         /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated} */
         const esbAuthenticated = spec['TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated$'];
         /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Failed} */
@@ -85,7 +85,7 @@ export default class Fl64_Log_Agg_Front_App {
             /**
              * Wait until back-to-front events stream will be opened and authenticated before continue.
              * @param {TeqFw_Di_Shared_Container} container
-             * @return {Promise<TeqFw_Web_Front_Event_Connect_Event_Reverse_Opened.Dto>}
+             * @return {Promise<TeqFw_Web_Event_Front_Event_Connect_Reverse_Opened.Dto>}
              * @memberOf Fl64_Log_Agg_Front_App.init
              */
             async function initEventStream(container) {

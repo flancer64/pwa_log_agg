@@ -7,8 +7,8 @@
 export default class Fl64_Log_Agg_Front_Hand_Log_Received {
     constructor(spec) {
         // DEPS
-        /** @type {TeqFw_Web_Front_App_Event_Bus} */
-        const eventsFront = spec['TeqFw_Web_Front_App_Event_Bus$'];
+        /** @type {TeqFw_Web_Event_Front_Mod_Bus} */
+        const eventsFront = spec['TeqFw_Web_Event_Front_Mod_Bus$'];
         /** @type {Fl64_Log_Agg_Shared_Event_Back_Log_Added} */
         const esbAdded = spec['Fl64_Log_Agg_Shared_Event_Back_Log_Added$'];
         /** @type {Fl64_Log_Agg_Front_Mod_Logs} */

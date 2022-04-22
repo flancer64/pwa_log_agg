@@ -47,7 +47,7 @@ This is valid JSON for incoming logs that aggregator can process:
   "level": 0,
   "message": "Event #463d8b4e-8c61-4f40-b6dd-c5590cbc33a9 (Fl32_Dup_Shared_Event_Front_Msg_Read) is published to back and removed from front queue.",
   "meta": {"frontUuid": "bf47e3f1-2829-43ca-82bd-82a819311065", "backUuid": "7792fea5-612e-4f20-9ed3-830a46162b54"},
-  "source": "TeqFw_Web_Front_App_Connect_Event_Direct_Portal"
+  "source": "TeqFw_Web_Event_Front_Mod_Connect_Direct_Portal"
 }
 ```
 
