@@ -39,9 +39,9 @@ export default function Factory(spec) {
     }
 
     // MAIN
-    Object.defineProperty(init, 'name', {value: `${NS}.${init.name}`});
+    Object.defineProperty(init, 'namespace', {value: NS});
     return init;
 }
 
 // finalize code components for this es6-module
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+Object.defineProperty(Factory, 'namespace', {value: NS});

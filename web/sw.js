@@ -1,7 +1,4 @@
-// MODULE'S IMPORT
 import {createLogger, setup as mainSetup} from './src/@teqfw/web/Sw/Worker.mjs';
-
-// MAIN
 
 // create logger to trace installation process for Service Worker
 const rnd = Math.floor(Math.random() * 1000000); // pseudo UUID to mark logs for one front on a server

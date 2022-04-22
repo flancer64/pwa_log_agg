@@ -9,14 +9,14 @@ export default function Factory(spec) {
     /** @type {TeqFw_Db_Back_RDb_IConnect} */
     const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
 
-    // COMPOSE RESULT
+    // MAIN
     async function exec() {
         await rdb.disconnect();
     }
 
-    Object.defineProperty(exec, 'name', {value: `${NS}.${exec.name}`});
+    Object.defineProperty(exec, 'namespace', {value: NS});
     return exec;
 }
 
 // finalize code components for this es6-module
-Object.defineProperty(Factory, 'name', {value: `${NS}.${Factory.name}`});
+Object.defineProperty(Factory, 'namespace', {value: NS});
