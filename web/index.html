@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./styles_boot.css" type="text/css">
     <meta charset="UTF-8">
     <meta name="description" content="Log Monitor">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Log Monitor</title>
-    <link rel="manifest" href="./pwa.webmanifest">
-    <link rel="stylesheet" href="./styles_boot.css" type="text/css">
+
+    <style>
+        .loadingProgress {
+            font-size: smaller;
+            padding-top: 10px;
+        }
+    </style>
 
     <script>
         self.addEventListener('load', async () => {
-            // local printout DIV
-            const elLaunchpad = document.querySelector('.launchpad');
-            // see `node_modules/@teqfw/web/web/js/loader.mjs`
-            const mod = await import('./web/@teqfw/web/js/loader.mjs');
+            // see `node_modules/@teqfw/web/web/js/install.mjs`
+            const {Install} = await import('./web/@teqfw/web/js/install.mjs');
             // create & init bootstrap object
-            /** @type {Bootstrap} */
-            const boot = new mod.Bootstrap();
-            boot.setCssMount('BODY > DIV');
-            boot.setNsApp('Fl64_Log_Agg_Front_App');
+            /** @type {Install} */
+            const installer = new Install();
+            installer.setCssMount('BODY > DIV');
+            installer.setNsApp('Fl64_Log_Agg_Front_App');
             // set printout to UI DIV & to console
-            boot.setFnPrintout((msg) => {
-                elLaunchpad.innerHTML = msg;
+            // local printout DIV
+            const elPrintout = document.querySelector('.loadingMsg');
+            installer.setFnPrintout((msg) => {
+                elPrintout.innerHTML = msg;
                 console.log(`[shell]: ${msg}`);
             });
+            const elProgress = document.querySelector('.loadingProgress');
+            installer.setFnProgress((percent) => {
+                const val = Math.floor(percent * 100);
+                elProgress.innerHTML = `${val}%`;
+            });
             // run the application's bootstrap
-            await boot.run();
+            await installer.run();
         });
     </script>
 </head>
@@ -33,6 +45,8 @@
 <div>
     <app-root>
         <div class="launchpad">TeqFW App is loading...</div>
+        <div class="loadingProgress">0%</div>
+        <div class="loadingMsg"></div>
     </app-root>
 </div>
 <!-- These scripts are not ready for loading with TeqFW DI. Use old style loading.  -->
@@ -42,7 +56,6 @@
 <script type="application/javascript" src="./src/quasar/quasar.umd.prod.js"></script>
 <script type="application/javascript" src="./src/quasar/icon-set/svg-material-icons.umd.prod.js"></script>
 <script type="application/javascript" src="./src/tweetnacl/nacl-fast.min.js"></script>
-<script type="application/javascript" src="./src/tweetnacl-util/nacl-util.min.js"></script>
 
 <!-- These styles are loaded after landing page is displayed -->
 <link rel="stylesheet" href="./web/@teqfw/ui-quasar/styles.css">
