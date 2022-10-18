@@ -12,7 +12,7 @@ DIR_OWN="${DIR_ROOT}/own_modules"
 ##
 processRepo() {
   NAME="@${1}"
-  REPO="git@github.com:${1}.git"
+  REPO="https://github.com/${1}.git"
   if test ! -d "${DIR_OWN}/${NAME}"; then
     echo "Clone repo '${NAME}' to '${DIR_OWN}'."
     git clone "${REPO}" "${DIR_OWN}/${NAME}"
@@ -29,7 +29,7 @@ rm -fr "${DIR_NODE}" "${DIR_ROOT}/package-lock.json"
 
 echo "Re-install JS project."
 cd "${DIR_ROOT}" || exit 255
-npm install --no-optional
+npm install --omit=optional
 
 #echo "Remove cloned dependencies (sources)."
 #rm -fr "${DIR_OWN}/@teqfw"
@@ -37,7 +37,6 @@ npm install --no-optional
 
 echo "Clone dependencies from github to inner folders."
 mkdir -p "${DIR_OWN}/@teqfw/"
-#mkdir -p "${DIR_OWN}/@flancer32/"
 
 processRepo "teqfw/core"
 processRepo "teqfw/db"
