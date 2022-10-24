@@ -12,8 +12,8 @@ export default function Factory(spec) {
     const container = spec['TeqFw_Di_Shared_Container$'];
     /** @type {TeqFw_Core_Back_Config} */
     const config = spec['TeqFw_Core_Back_Config$'];
-    /** @type {TeqFw_Db_Back_RDb_Connect} */ // use interface as implementation
-    const rdb = spec['TeqFw_Db_Back_RDb_IConnect$'];
+    /** @type {TeqFw_Db_Back_RDb_Connect} */
+    const conn = spec['TeqFw_Db_Back_RDb_IConnect$']; // use interface as implementation
 
 
     // FUNCS
@@ -28,7 +28,7 @@ export default function Factory(spec) {
         async function initDb() {
             /** @type {Fl64_Log_Agg_Back_Dto_Config_Local} */
             const cfg = config.getLocal(DEF.SHARED.NAME);
-            await rdb.init(cfg.db);
+            await conn.init(cfg.db);
         }
 
         // MAIN

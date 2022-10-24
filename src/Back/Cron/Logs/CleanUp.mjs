@@ -2,12 +2,14 @@
  * Process to periodically clean up old logs in DB (older than 24 hours).
  *
  * @namespace Fl64_Log_Agg_Back_Cron_Logs_CleanUp
+ * TODO: don't init this function from plugin init. Create cleaner class (with start/stop methods)
+ * TODO: ... and start cleanup from plugn's init function then stop cleanup from plugin's stop function
  */
 // MODULE'S IMPORT
 
 // MODULE'S VARS
 const NS = 'Fl64_Log_Agg_Back_Cron_Logs_CleanUp';
-const INTERVAL = 1000 * 60 * 60; // 1 hour
+// const INTERVAL = 1000 * 60 * 60; // 1 hour
 
 // MODULE'S FUNCS
 /**
@@ -36,23 +38,26 @@ export default function (spec) {
      * @memberOf Fl64_Log_Agg_Back_Cron_Logs_CleanUp
      */
     async function process() {
-        const trx = await rdb.startTransaction();
-        try {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            const where = (build) => build.where(ATTR.DATE, '<', yesterday);
-            const deleted = await crud.deleteSet(trx, rdbLog, where);
-            await trx.commit();
-            if (deleted)
-                logger.info(`Logs cleaner has removed ${deleted} old entries from RDB.`);
-        } catch (error) {
-            await trx.rollback();
-            logger.error(error);
-        }
+        // run once after 8 secs.
+        setTimeout(async () => {
+            const trx = await rdb.startTransaction();
+            try {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                const where = (build) => build.where(ATTR.DATE, '<', yesterday);
+                const deleted = await crud.deleteSet(trx, rdbLog, where);
+                await trx.commit();
+                if (deleted)
+                    logger.info(`Logs cleaner has removed ${deleted} old entries from RDB.`);
+            } catch (error) {
+                await trx.rollback();
+                logger.error(error);
+            }
+        }, 8000);
     }
 
     // MAIN
     logger.setNamespace(NS);
     Object.defineProperty(process, 'namespace', {value: NS});
-    setInterval(process, INTERVAL)
+    // setInterval(process, INTERVAL)
 }
