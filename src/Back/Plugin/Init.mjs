@@ -14,7 +14,8 @@ export default function Factory(spec) {
     const config = spec['TeqFw_Core_Back_Config$'];
     /** @type {TeqFw_Db_Back_RDb_Connect} */
     const conn = spec['TeqFw_Db_Back_RDb_IConnect$']; // use interface as implementation
-
+    /** @type {Fl64_Log_Agg_Back_Mod_Clean} */
+    const modClean = spec['Fl64_Log_Agg_Back_Mod_Clean$'];
 
     // FUNCS
     async function init() {
@@ -33,8 +34,8 @@ export default function Factory(spec) {
 
         // MAIN
         await initDb();
+        modClean.start();
         // TODO: move it to core
-        await container.get('Fl64_Log_Agg_Back_Cron_Logs_CleanUp$');
         await container.get('Fl64_Log_Agg_Back_Hand_Load_Logs$');
     }
 

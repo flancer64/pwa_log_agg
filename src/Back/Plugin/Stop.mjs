@@ -5,13 +5,13 @@
 const NS = 'Fl64_Log_Agg_Back_Plugin_Stop';
 
 export default function Factory(spec) {
-    // EXTRACT DEPS
-    /** @type {TeqFw_Db_Back_RDb_Connect} */
-    // const conn = spec['TeqFw_Db_Back_RDb_IConnect$']; // use interface as implementation
+    // DEPS
+    /** @type {Fl64_Log_Agg_Back_Mod_Clean} */
+    const modClean = spec['Fl64_Log_Agg_Back_Mod_Clean$'];
 
     // MAIN
     async function exec() {
-        // await conn.disconnect();
+        modClean.stop();
     }
 
     Object.defineProperty(exec, 'namespace', {value: NS});
