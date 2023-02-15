@@ -18,43 +18,25 @@ class Dto {
 }
 
 /**
- * @implements TeqFw_Core_Shared_Api_Factory_Dto_IEvent
+ * @implements TeqFw_Core_Shared_Api_Factory_Dto
  */
 export default class Fl64_Log_Agg_Shared_Event_Back_Log_Added {
     constructor(spec) {
-        // EXTRACT DEPS
-        /** @type {TeqFw_Web_Event_Shared_Dto_Event} */
-        const dtoBase = spec['TeqFw_Web_Event_Shared_Dto_Event$'];
+        // DEPS
         /** @type {Fl64_Log_Agg_Shared_Dto_Log} */
         const dtoLog = spec['Fl64_Log_Agg_Shared_Dto_Log$'];
 
-        // VARS
-        const ATTR = dtoBase.getAttributes();
-
-        // FUNCS
+        // INSTANCE METHODS
         /**
          * @param {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto} [data]
          * @return {Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto}
          */
-        function createData(data) {
-            const res = new Dto();
+        this.createDto = function (data) {
+            // create new DTO and populate it with initialization data
+            const res = Object.assign(new Dto(), data);
+            // cast known attributes
             res.item = dtoLog.createDto(data?.item);
             return res;
         }
-
-        // INSTANCE METHODS
-        /**
-         * @param {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Event_Shared_Dto_Event_Meta.Dto}} [data]
-         * @return {{data: Fl64_Log_Agg_Shared_Event_Back_Log_Added.Dto, meta: TeqFw_Web_Event_Shared_Dto_Event_Meta.Dto}}
-         */
-        this.createDto = function (data) {
-            const res = dtoBase.createDto({[ATTR.META]: data?.[ATTR.META]});
-            res.meta.name = NS;
-            res.data = createData(data?.[ATTR.DATA]);
-            // noinspection JSValidateTypes
-            return res;
-        }
-
-        this.getEventName = () => NS;
     }
 }

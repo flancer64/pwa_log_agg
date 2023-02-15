@@ -20,37 +20,33 @@ const NS = 'Fl64_Log_Agg_Front_App';
 export default class Fl64_Log_Agg_Front_App {
     constructor(spec) {
         // EXTRACT DEPS
-        const {createApp} = spec['TeqFw_Vue_Front_Lib_Vue'];
+        /** @type {function} */
+        const createApp = spec['TeqFw_Vue_Front_Lib_Vue.createApp'];
         const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Lib_Router'];
         /** @type {Fl64_Log_Agg_Front_Defaults} */
         const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
         /** @type {TeqFw_Di_Shared_Container} */
         const container = spec['TeqFw_Di_Shared_Container$'];
-        /** @type {TeqFw_Core_Shared_Api_ILogger} */
-        const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
+        /** @type {TeqFw_Core_Shared_Api_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {TeqFw_Ui_Quasar_Front_Lib} */
         const quasar = spec['TeqFw_Ui_Quasar_Front_Lib'];
         /** @type {Fl64_Log_Agg_Front_Layout_Base} */
         const layoutBase = spec['Fl64_Log_Agg_Front_Layout_Base$'];
         /** @type {Fl64_Log_Agg_Front_Layout_Top.vueCompTmpl} */
         const topBar = spec['Fl64_Log_Agg_Front_Layout_Top$'];
+        /** @type {TeqFw_Web_Event_Front_Web_Connect_Stream_Open.act|function} */
+        const connReverseOpen = spec['TeqFw_Web_Event_Front_Web_Connect_Stream_Open$'];
         /** @type {TeqFw_Web_Front_Mod_Config} */
         const modCfg = spec['TeqFw_Web_Front_Mod_Config$'];
-        /** @type {TeqFw_Web_Auth_Front_Mod_Identity} */
-        const modIdentity = spec['TeqFw_Web_Auth_Front_Mod_Identity$'];
-        /** @type {TeqFw_Web_Event_Front_Mod_Connect_Reverse} */
-        const streamBf = spec['TeqFw_Web_Event_Front_Mod_Connect_Reverse$'];
-        /** @type {TeqFw_Web_Event_Front_Mod_Bus} */
-        const eventBus = spec['TeqFw_Web_Event_Front_Mod_Bus$'];
-        /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated} */
-        const esbAuthenticated = spec['TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Authenticated$'];
-        /** @type {TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Failed} */
-        const esbFailed = spec['TeqFw_Web_Event_Shared_Event_Back_Stream_Reverse_Failed$'];
+        /** @type {TeqFw_Web_Event_Front_Mod_Identity_Front} */
+        const modIdFront = spec['TeqFw_Web_Event_Front_Mod_Identity_Front$'];
         /** @type {TeqFw_I18n_Front_Mod_I18n} */
         const modI18n = spec['TeqFw_I18n_Front_Mod_I18n$'];
 
         // VARS
         let _isInitialized = false; // application is initialized and can be mounted
+        let _print; // function to printout logs to UI or console
         let _root; // root vue component for the application
 
         // MAIN
@@ -78,33 +74,8 @@ export default class Fl64_Log_Agg_Front_App {
             async function initEventProcessors(container) {
                 // TODO: init from 'teqfw.json'
                 // Some processes (authentication) should be subscribed to events before Reverse Stream can be opened.
-                await container.get('Fl64_Log_Agg_Front_Hand_Connect_Manager$');
-                await container.get('Fl64_Log_Agg_Front_Hand_Log_Received$');
-            }
-
-            /**
-             * Wait until back-to-front events stream will be opened and authenticated before continue.
-             * @param {TeqFw_Di_Shared_Container} container
-             * @return {Promise<TeqFw_Web_Event_Front_Event_Connect_Reverse_Opened.Dto>}
-             * @memberOf Fl64_Log_Agg_Front_App.init
-             */
-            async function initEventStream(container) {
-                return new Promise((resolve, reject) => {
-                    if (navigator.onLine) {
-                        streamBf.open();
-                        const subsSuccess = eventBus.subscribe(esbAuthenticated.getEventName(), (evt) => {
-                            eventBus.unsubscribe(subsSuccess);
-                            logger.info(`Events reverse stream is opened on the front and authenticated by back.`);
-                            resolve(evt);
-                        });
-                        const subsFailed = eventBus.subscribe(esbFailed.getEventName(), (evt) => {
-                            // TODO: this event is not published by back yet
-                            eventBus.unsubscribe(subsFailed);
-                            debugger
-                            reject(new Error(evt?.data?.reason));
-                        });
-                    } else resolve();
-                });
+                await container.get('Fl64_Log_Agg_Front_Listen_Connect_Manager$');
+                await container.get('Fl64_Log_Agg_Front_Listen_Log_Received$');
             }
 
             /**
@@ -160,8 +131,9 @@ export default class Fl64_Log_Agg_Front_App {
             }
 
             // MAIN
-            const print = createPrintout(fnPrintout);
-            print(`TeqFW App is initializing...`);
+            let res = true;
+            _print = createPrintout(fnPrintout);
+            _print(`TeqFW App is initializing...`);
 
             // create root vue component
             _root = createApp({
@@ -183,29 +155,30 @@ export default class Fl64_Log_Agg_Front_App {
             _root.component('LayoutBase', layoutBase);
             _root.component('TopBar', topBar);
 
-
             // other initialization
             await modCfg.init({}); // this app has no separate 'doors' (entry points)
-            print(`Application config is loaded.`);
+            _print(`Application config is loaded.`);
             await initI18n(_root);
-            print(`i18n resources are loaded.`);
-            await modIdentity.init();
-            print(`Front UUID: ${modIdentity.getFrontUuid()}.`);
+            _print(`i18n resources are loaded.`);
+            await modIdFront.init();
+            _print(`Front UUID: ${modIdFront.getFrontUuid()}.`);
             try {
                 await initEventProcessors(container);
-                print(`Frontend processes are created.`);
-                await initEventStream(container);
-                print(`Backend events stream is opened.`);
+                _print(`Frontend processes are created.`);
+                await connReverseOpen();
+                _print(`Stream for backend events is opened.`);
                 initQuasarUi(_root, quasar);
                 initUiComponents(_root);
-                print(`Data sources are initialized.`);
+                _print(`Data sources are initialized.`);
                 initRouter(_root, DEF, container);
-                print(`Vue app is created and initialized.`);
+                _print(`Vue app is created and initialized.`);
                 _isInitialized = true;
             } catch (e) {
                 // TODO: place IDB cleanup here for re-installs
-                print(e.message);
+                _print(e.message);
+                res = false;
             }
+            return res;
         }
 
         /**
@@ -217,6 +190,17 @@ export default class Fl64_Log_Agg_Front_App {
          */
         this.mount = function (elRoot) {
             if (_isInitialized) _root.mount(elRoot);
+        }
+
+        /**
+         * @param {Element|string} elRoot
+         */
+        this.reinstall = function (elRoot) {
+            _print(`
+It is required to reinstall app. Please clean up all data in DevTools 
+(F12 / Application / Storage / Clear site data).
+Then reload this page.
+`);
         }
     }
 }

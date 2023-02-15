@@ -43,8 +43,12 @@ export default function (spec) {
     const uiLogItem = spec['Fl64_Log_Agg_Front_Ui_Home_Item$'];
     /** @type {Fl64_Log_Agg_Front_Widget_Home_Route} */
     const wgHomeRoute = spec['Fl64_Log_Agg_Front_Widget_Home_Route$'];
-    /** @type {Fl64_Log_Agg_Front_Proc_Load_Logs.process|function} */
-    const procLoad = spec['Fl64_Log_Agg_Front_Proc_Load_Logs$'];
+    /** @type {TeqFw_Web_Event_Front_Act_Trans_Call.act|function} */
+    const callTrans = spec['TeqFw_Web_Event_Front_Act_Trans_Call$'];
+    /** @type {Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request} */
+    const esfReq = spec['Fl64_Log_Agg_Shared_Event_Front_Load_Logs_Request$'];
+    /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response} */
+    const esbRes = spec['Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response$'];
     /** @type {Fl64_Log_Agg_Front_Mod_Logs} */
     const modLogs = spec['Fl64_Log_Agg_Front_Mod_Logs$'];
 
@@ -94,8 +98,12 @@ export default function (spec) {
         },
         async mounted() {
             wgHomeRoute.set(this);
-            const {items} = await procLoad({limit: LIMIT});
-            modLogs.setEntries(items);
+
+            const req = esfReq.createDto();
+            req.limit = LIMIT;
+            /** @type {Fl64_Log_Agg_Shared_Event_Back_Load_Logs_Response.Dto} */
+            const rs = await callTrans(req, esbRes);
+            modLogs.setEntries(rs.items);
         }
     };
 }

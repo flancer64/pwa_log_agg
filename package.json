@@ -15,7 +15,7 @@
   },
   "repository": "github:flancer64/pwa_log_agg",
   "scripts": {
-    "db-init": "node ./bin/tequila.mjs app-db-init",
+    "db-init": "node ./bin/tequila.mjs db-init",
     "help": "node ./bin/tequila.mjs -h",
     "rebuild": "rm -fr node_modules package-lock.json && npm install",
     "start": "node ./bin/tequila.mjs web-server-start",
@@ -34,5 +34,8 @@
     "@teqfw/web-api": "github:teqfw/web-api",
     "@teqfw/web-auth": "github:teqfw/web-auth",
     "pg": "*"
+  },
+  "engines": {
+    "node": ">=17"
   }
 }

@@ -8,8 +8,8 @@ const INTERVAL = 1000 * 60 * 60; // 1 hour
 export default class Fl64_Log_Agg_Back_Mod_Clean {
     constructor(spec) {
         // DEPS
-        /** @type {TeqFw_Core_Shared_Api_ILogger} */
-        const logger = spec['TeqFw_Core_Shared_Api_ILogger$$']; // instance
+        /** @type {TeqFw_Core_Shared_Api_Logger} */
+        const logger = spec['TeqFw_Core_Shared_Api_Logger$$']; // instance
         /** @type {TeqFw_Db_Back_RDb_Connect} */
         const conn = spec['TeqFw_Db_Back_RDb_IConnect$']; // use interface as implementation
         /** @type {TeqFw_Db_Back_Api_RDb_ICrudEngine} */

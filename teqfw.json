@@ -1,8 +1,6 @@
 {
   "@teqfw/core": {
-    "commands": [
-      "Fl64_Log_Agg_Back_Cli_Db_Init"
-    ],
+    "commands": [],
     "plugin": {
       "onInit": "Fl64_Log_Agg_Back_Plugin_Init",
       "onStop": "Fl64_Log_Agg_Back_Plugin_Stop"
@@ -15,15 +13,11 @@
     }
   },
   "@teqfw/web": {
-    "excludes": {
-      "handlers": [
-        "TeqFw_Web_Back_App_Server_Handler_Upload"
-      ]
+    "handlers": {
+      "Fl64_Log_Agg_Back_Web_Handler_Beacon": {
+        "before": ["TeqFw_Web_Back_App_Server_Handler_Static"],
+        "spaces": ["log-agg-beacon"]
+      }
     }
-  },
-  "@teqfw/web-api": {
-    "services": [
-      "Fl64_Log_Agg_Back_WAPI_Add"
-    ]
   }
 }

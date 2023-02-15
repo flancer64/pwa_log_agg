@@ -27,7 +27,7 @@ export default function Factory(spec) {
          * @return {Promise<void>}
          */
         async function initDb() {
-            /** @type {Fl64_Log_Agg_Back_Dto_Config_Local} */
+            /** @type {Fl64_Log_Agg_Back_Plugin_Dto_Config_Local} */
             const cfg = config.getLocal(DEF.SHARED.NAME);
             await conn.init(cfg.db);
         }
@@ -35,8 +35,7 @@ export default function Factory(spec) {
         // MAIN
         await initDb();
         modClean.start();
-        // TODO: move it to core
-        await container.get('Fl64_Log_Agg_Back_Hand_Load_Logs$');
+        await container.get('Fl64_Log_Agg_Back_Listen_Trans_Load_Logs$');
     }
 
     // MAIN

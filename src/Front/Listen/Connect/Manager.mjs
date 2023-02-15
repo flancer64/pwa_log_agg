@@ -2,7 +2,7 @@
  * Re-open events reverse stream if it was closed by server.
  * Try to open stream every 5 sec. for first 2 min. then every 1 min until stream will be opened.
  *
- * @namespace Fl64_Log_Agg_Front_Hand_Connect_Manager
+ * @namespace Fl64_Log_Agg_Front_Listen_Connect_Manager
  */
 // MODULE'S VARS
 const TIMEOUT_SMALL = 5000; // 5 sec
@@ -10,17 +10,17 @@ const TIMEOUT_NORM = 60000; // 1 min
 const INTERVAL_TO_SWITCH = 120000 // 2 min
 
 // MODULE'S CLASSES
-export default class Fl64_Log_Agg_Front_Hand_Connect_Manager {
+export default class Fl64_Log_Agg_Front_Listen_Connect_Manager {
     constructor(spec) {
         // DEPS
-        /** @type {TeqFw_Web_Event_Front_Mod_Connect_Reverse} */
-        const stream = spec['TeqFw_Web_Event_Front_Mod_Connect_Reverse$'];
-        /** @type {TeqFw_Web_Event_Front_Mod_Bus} */
-        const eventsFront = spec['TeqFw_Web_Event_Front_Mod_Bus$'];
-        /** @type {TeqFw_Web_Event_Front_Event_Connect_Reverse_Closed} */
-        const efClosed = spec['TeqFw_Web_Event_Front_Event_Connect_Reverse_Closed$'];
-        /** @type {TeqFw_Web_Event_Front_Event_Connect_Reverse_Opened} */
-        const efOpened = spec['TeqFw_Web_Event_Front_Event_Connect_Reverse_Opened$'];
+        /** @type {TeqFw_Web_Event_Front_Web_Connect_Stream_Open.act|function} */
+        const connReverseOpen = spec['TeqFw_Web_Event_Front_Web_Connect_Stream_Open$'];
+        /** @type {TeqFw_Web_Event_Front_Mod_Channel} */
+        const eventsFront = spec['TeqFw_Web_Event_Front_Mod_Channel$'];
+        /** @type {TeqFw_Web_Event_Front_Event_Msg_Stream_Closed} */
+        const efClosed = spec['TeqFw_Web_Event_Front_Event_Msg_Stream_Closed$'];
+        /** @type {TeqFw_Web_Event_Front_Event_Msg_Stream_Opened} */
+        const efOpened = spec['TeqFw_Web_Event_Front_Event_Msg_Stream_Opened$'];
 
         // VARS
         let _frequent = true; // retry every 5 sec or every 1 min
@@ -30,8 +30,8 @@ export default class Fl64_Log_Agg_Front_Hand_Connect_Manager {
         let _timeStarted; // save watchdog starting time to select wait interval (5 sec or 1 min)
 
         // MAIN
-        eventsFront.subscribe(efOpened.getEventName(), onReverseOpened);
-        eventsFront.subscribe(efClosed.getEventName(), onReverseClosed);
+        eventsFront.subscribe(efOpened, onReverseOpened);
+        eventsFront.subscribe(efClosed, onReverseClosed);
 
 
         // FUNCS
@@ -75,7 +75,9 @@ export default class Fl64_Log_Agg_Front_Hand_Connect_Manager {
                         _idIntervalTry = setInterval(retryStreamOpening, TIMEOUT_NORM);
                     }
                 }
-                stream.open();
+                connReverseOpen().catch(() => {
+                    // stealth errors
+                });
             }
         }
     }
