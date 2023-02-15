@@ -4,7 +4,7 @@
 export default class Fl64_Log_Agg_Front_Rx_Details {
     constructor(spec) {
         // EXTRACT DEPS
-        const {ref} = spec['TeqFw_Vue_Front_Lib_Vue'];
+        const {ref} = spec['TeqFw_Vue_Front_Ext_Vue'];
 
         // VARS
         const _item = ref(null);

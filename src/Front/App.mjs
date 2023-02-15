@@ -21,8 +21,8 @@ export default class Fl64_Log_Agg_Front_App {
     constructor(spec) {
         // EXTRACT DEPS
         /** @type {function} */
-        const createApp = spec['TeqFw_Vue_Front_Lib_Vue.createApp'];
-        const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Lib_Router'];
+        const createApp = spec['TeqFw_Vue_Front_Ext_Vue.createApp'];
+        const {createRouter, createWebHashHistory} = spec['TeqFw_Vue_Front_Ext_Router'];
         /** @type {Fl64_Log_Agg_Front_Defaults} */
         const DEF = spec['Fl64_Log_Agg_Front_Defaults$'];
         /** @type {TeqFw_Di_Shared_Container} */
