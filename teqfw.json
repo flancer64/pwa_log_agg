@@ -14,6 +14,10 @@
   },
   "@teqfw/web": {
     "handlers": {
+      "Fl64_Log_Agg_Back_Web_Handler_Collect": {
+        "before": ["Fl64_Log_Agg_Back_Web_Handler_Beacon"],
+        "spaces": ["log-agg-collect"]
+      },
       "Fl64_Log_Agg_Back_Web_Handler_Beacon": {
         "before": ["TeqFw_Web_Back_App_Server_Handler_Static"],
         "spaces": ["log-agg-beacon"]
