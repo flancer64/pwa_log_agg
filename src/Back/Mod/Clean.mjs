@@ -45,6 +45,7 @@ export default class Fl64_Log_Agg_Back_Mod_Clean {
         this.start = function () {
             this.stop();
             _idi = setInterval(clean, INTERVAL);
+            clean().catch(logger.error); // clean logs on startup
         }
 
         this.stop = function () {
